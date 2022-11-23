@@ -16,19 +16,224 @@
     <title>DSB Review A2</title>
 </head>
 <body>
-    <div id="DSBHomePage" data-role="page">
-        <header data-role="header" data-theme="a" data-position="fixed">
-            <h2>My Lists</h2>
+    <div id="Home" data-role="page">
+        <div data-role="panel" data-display="overlay" data-position="left" id="profilePanel">
 
+            <div class="profileImageContainer">
+                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            </div>
+            <div>
+                <h3>Hello {user_name} </h3>
+            </div>
+            <div>
+                <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
+                <a href="#Settings" class="ui-btn ui-icon-gear ui-btn-icon-left">Settings</a>
+                <a href="#Profile" class="ui-btn ui-icon-user ui-btn-icon-left">Profile</a>
+            </div>
+        </div>
+
+        <header data-role="header" data-theme="a" data-position="fixed">
+            <a href="#profilePanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
+            <h2>My Lists</h2>
         </header>
         <section data-role="content">
-
+            <ul class="customListView" data-role="listview"  data-inset="true">
+                <li><a href="#Details"><span class="ui-li-count">7</span><br>Groceries</a></li>
+            </ul>
+            <ul class="customListView" data-role="listview"  data-inset="true">
+                <li><a href="#Details"><span class="ui-li-count">7</span><br>Work</a></li>
+            </ul>
+            <ul class="customListView" data-role="listview"  data-inset="true">
+                <li><a href="#Details"><span class="ui-li-count">4</span><br>Trip</a></li>
+            </ul>
+            <a href="#AddList" class="ui-btn ui-icon-plus ui-btn-icon-left">New List</a>
         </section>
         <footer data-role="footer" data-position="fixed">
             <h2>&copy; 2022 OneList</h2>
         </footer>
     </div>
 
+
+
+    <div id="Details" data-role="page">
+
+        <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelDetailsPage">
+            <div class="profileImageContainer">
+                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            </div>
+            <div>
+                <h3>Hello {user_name} </h3>
+            </div>
+            <div>
+                <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
+                <a href="#Settings" class="ui-btn ui-icon-gear ui-btn-icon-left">Settings</a>
+                <a href="#Profile" class="ui-btn ui-icon-user ui-btn-icon-left">Profile</a>
+            </div>
+        </div>
+
+        <header data-role="header" data-theme="a" data-position="fixed">
+            <a href="#profilePanelDetailsPage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
+            <h2>{ListName}</h2>
+        </header>
+
+        <section data-role="content">
+            <ul data-role="listview"  data-inset="true" data-split-icon="check">
+                <li>
+                    <a href="#Home">Apples</a>
+                    <a href="#Home">Purchase album</a>
+                </li>
+                <li>
+                    <a href="#Home">Grapes</a>
+                    <a href="#Home">Purchase album</a>
+                </li>
+                <li>
+                    <a href="#Home">Oranges</a>
+                    <a href="#Home">Purchase album</a>
+                </li>
+                <li>
+                    <a href="#Home">Bananas</a>
+                    <a href="#Home">Purchase album</a>
+                </li>
+                <li>
+                    <a href="#Home">Watermelon</a>
+                    <a href="#Home">Purchase album</a>
+                </li>
+            </ul>
+            <a href="#AddItem" class="ui-btn ui-icon-plus ui-btn-icon-left">Add</a>
+        </section>
+        <footer data-role="footer" data-position="fixed">
+            <h2>&copy; 2022 OneList</h2>
+        </footer>
+    </div>
+
+    <div id="AddItem" data-role="page">
+
+        <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelAddItemPage">
+            <div class="profileImageContainer">
+                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            </div>
+            <div>
+                <h3>Hello {user_name} </h3>
+            </div>
+            <div>
+                <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
+                <a href="#Settings" class="ui-btn ui-icon-gear ui-btn-icon-left">Settings</a>
+                <a href="#Profile" class="ui-btn ui-icon-user ui-btn-icon-left">Profile</a>
+            </div>
+        </div>
+
+        <header data-role="header" data-theme="a" data-position="fixed">
+            <a href="#profilePanelAddItemPage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
+            <h2>{ListName}</h2>
+        </header>
+
+        <section data-role="content">
+            <form>
+                <ul data-role="listview" data-inset="true">
+                    <li class="ui-field-contain">
+                        <label for="itemAdd">Item:</label>
+                        <input type="text" name="itemAdd" id="itemAdd" value="" data-clear-btn="true">
+                    </li>
+                </ul>
+                <button id="itemSave" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+            </form>
+        </section>
+        <footer data-role="footer" data-position="fixed">
+            <h2>&copy; 2022 OneList</h2>
+        </footer>
+    </div>
+
+    <div id="AddList" data-role="page">
+
+        <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelAddListPage">
+            <div class="profileImageContainer">
+                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            </div>
+            <div>
+                <h3>Hello {user_name} </h3>
+            </div>
+            <div>
+                <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
+                <a href="#Settings" class="ui-btn ui-icon-gear ui-btn-icon-left">Settings</a>
+                <a href="#Profile" class="ui-btn ui-icon-user ui-btn-icon-left">Profile</a>
+            </div>
+        </div>
+
+        <header data-role="header" data-theme="a" data-position="fixed">
+            <a href="#profilePanelAddListPage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
+            <h2>{ListName}</h2>
+        </header>
+
+        <section data-role="content">
+            <form>
+                <ul data-role="listview" data-inset="true">
+                    <li class="ui-field-contain">
+                        <label for="listAdd">Item:</label>
+                        <input type="text" name="itemAdd" id="listAdd" value="" data-clear-btn="true">
+                    </li>
+                </ul>
+                <button id="listSave" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+            </form>
+        </section>
+        <footer data-role="footer" data-position="fixed">
+            <h2>&copy; 2022 OneList</h2>
+        </footer>
+    </div>
+
+
+    <div id="Profile" data-role="page">
+
+        <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelProfilePage">
+            <div class="profileImageContainer">
+                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            </div>
+            <div>
+                <h3>Hello {user_name} </h3>
+            </div>
+            <div>
+                <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
+                <a href="#Settings" class="ui-btn ui-icon-gear ui-btn-icon-left">Settings</a>
+                <a href="#Profile" class="ui-btn ui-icon-user ui-btn-icon-left">Profile</a>
+            </div>
+        </div>
+
+        <header data-role="header" data-theme="a" data-position="fixed">
+            <a href="#profilePanelProfilePage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
+            <h2>Profile</h2>
+        </header>
+
+        <section data-role="content">
+            <form>
+                <ul data-role="listview" data-inset="true">
+                    <li style="height: 200px;">
+                        <div class="profilePageImageContainer">
+                            <img class="profilePageImage" src="img/pexels-hannah-nelson-1085517.jpg">
+                        </div>
+                    </li>
+                    <li class="ui-field-contain">
+                        <div>
+                            <label for="fullName">Name</label>
+                            <input type="text" name="fullName" id="fullName" data-clear-btn="true">
+                        </div>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" data-clear-btn="true">
+                        </div>
+
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" data-clear-btn="true">
+                        </div>
+
+                    </li>
+                </ul>
+                <button id="profileSave" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+            </form>
+        </section>
+        <footer data-role="footer" data-position="fixed">
+            <h2>&copy; 2022 OneList</h2>
+        </footer>
+    </div>
 
 </body>
 </html>
