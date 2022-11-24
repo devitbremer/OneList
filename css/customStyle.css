@@ -30,7 +30,19 @@
     margin-left: -50px;
 }
 
+#mainList{
+    box-shadow: none !important;
+}
+#mainList li{
+    height: 60px;
+   margin-bottom: 30px;
+    border-style: none !important;
+    box-shadow: #828282 1px 1px;
+}
 
+#mainList li a{
+    height: 60px;
+}
 .border{
     border: 1px solid white;
     box-shadow: 3px 3px 7px 3px rgba(0,0,0,0.3);
