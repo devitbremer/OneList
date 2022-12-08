@@ -28,7 +28,7 @@ let databaseSetup = {
 
             let user = "CREATE TABLE IF NOT EXISTS user(" +
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                "name VARCHAR (30) NOT NULL," +
+                "fullName VARCHAR (30) NOT NULL," +
                 "email VARCHAR (50) NOT NULL," +
                 "password VARCHAR (15) NOT NULL);"
 
