@@ -1,6 +1,7 @@
 $(document).ready(function (){
-    init();
     initDatabase();
+    init();
+
 })
 function initDatabase(){
     try{
@@ -17,8 +18,35 @@ function initDatabase(){
         console.error(e);
     }
 }
+
 function init(){
     //ToDo: Set event handlers.
 
+
+    //Lists Context
+    $("#saveNewList").on("click", saveNewListClick);
+
+    //User Registration
+    $("#btnRegisterUser").on("click", btnRegisterUserClick)
+
+    //User Login
+    $("#btnLogin").on("click", btnLoginClick)
+
 }
 
+//Lists Context
+function saveNewListClick(){
+    createNewListValidation();
+}
+
+
+//User Registration
+function btnRegisterUserClick(){
+    createNewUserValidation();
+}
+
+
+//User Login
+function btnLoginClick(){
+    loginValidation();
+}
