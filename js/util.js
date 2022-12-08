@@ -39,11 +39,11 @@ function doValidation_registerForm(){
                 required: true,
                 email: true
             },
-            //ToDO: Password Strength?
             txtRegisterPassword:{
                 required: true,
                 minlength: 8,
-                maxlength: 15
+                maxlength: 15,
+                pwdStrength: true
             },
             txtRegisterConfirmPassword:{
                 required: true,
@@ -64,7 +64,8 @@ function doValidation_registerForm(){
             txtRegisterPassword:{
                 required: "Please enter a password.",
                 minlength: "Password must have at least 8 characters.",
-                maxlength: "Password can`t have more than 15 characters."
+                maxlength: "Password can`t have more than 15 characters.",
+                pwdStrength: "Password must meet complexity requirements"
             },
             txtRegisterConfirmPassword:{
                 required: "Please confirm your password.",
@@ -76,6 +77,13 @@ function doValidation_registerForm(){
     })
     return registerForm.valid();
 }
+
+//custom password strength validation
+jQuery.validator.addMethod("pwdStrength",
+    function(value, element){
+        var regexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).*$/;
+        return regexp.test(value);
+    });
 
 
 function doValidation_loginForm(){
@@ -107,69 +115,38 @@ function doValidation_loginForm(){
     })
     return loginForm.valid();
 }
-function doValidate_frmUpdate(){
-    let formUpdate = $("#frmUpdate");
+
+function doValidate_frmItemAdd(){
+    let formUpdate = $("#frmItemAdd");
 
     formUpdate.validate({
         errorElement: 'label',
         rules:{
-            updateRestaurantName:{
+            txtItemAdd:{
                 required: true,
                 minlength: 2,
+                maxlength: 15
+            },
+            txtItemQty:{
+                required: true,
+                min: 1
+            },
+            txtItemDescription:{
                 maxlength: 20
-            },
-            updateBusinessId:{
-                required: true,
-                minlength: 2,
-                maxlength: 5
-            },
-            updateReviewerEmail:{
-                required: true,
-                email: true
-            },
-            updateFoodQuality:{
-                required: '#updateRatings:checked',
-                min: 0,
-                max: 5
-            },
-            updateService:{
-                required: '#updateRatings:checked',
-                min: 0,
-                max: 5
-            },
-            updateValue:{
-                required: '#updateRatings:checked',
-                min: 0,
-                max: 5
             }
-
         },
         messages:{
-            updateRestaurantName:{
-                required: "Restaurant name is required.",
-                minlength: "Restaurant name must have at least 2 characters.",
-                maxlength: "Restaurant name must have no more than 20 characters."
+            txtItemAdd:{
+                required: "Please enter item name",
+                minlength: "Item must be at least 2 char long",
+                maxlength: "Item must be maximum 15 char long"
             },
-            updateBusinessId:{
-                required: "Business ID is required.",
-                minlength: "Business ID must have at least 2 characters.",
-                maxlength: "Business ID must have no more than 5 characters"
+            txtItemQty:{
+                required: "Please enter quantity",
+                min: "Minimum quantity is 1"
             },
-            updateReviewerEmail:{
-                required: "Your email address is required.",
-                email: "This does not look like a valid email."
-            },
-            updateFoodQuality:{
-                min: "Value must be between 0 and 5.",
-                max: "Value must be between 0 and 5."
-            },
-            updateService:{
-                min: "Value must be between 0 and 5.",
-                max: "Value must be between 0 and 5."
-            },
-            updateValue:{
-                min: "Value must be between 0 and 5.",
-                max: "Value must be between 0 and 5."
+            txtItemDescription:{
+                maxlength: "Description must be maximum 20 char long"
             }
         }
     })

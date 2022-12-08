@@ -127,11 +127,15 @@
         </header>
 
         <section data-role="content">
-            <form>
+            <form id="frmItemAdd" name="frmItemAdd">
                 <ul data-role="listview" data-inset="true">
                     <li class="ui-field-contain">
-                        <label for="itemAdd">Item:</label>
-                        <input type="text" name="itemAdd" id="itemAdd" data-clear-btn="true">
+                        <label for="txtItemAdd">Item:</label>
+                        <input type="text" name="txtItemAdd" id="txtItemAdd" data-clear-btn="true">
+                        <label for="txtItemQty">Quantity:</label>
+                        <input type="number" name="txtItemQty" id="txtItemQty" value="1" data-clear-btn="true">
+                        <label for="txtItemDescription">Description:</label>
+                        <input type="text" name="txtItemDescription" id="txtItemDescription" data-clear-btn="true">
                     </li>
                 </ul>
                 <button id="itemSave" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>

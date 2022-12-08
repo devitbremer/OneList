@@ -32,6 +32,8 @@ function init(){
     //User Login
     $("#btnLogin").on("click", btnLoginClick)
 
+    //Add Item
+    $("#itemSave").on("click", itemSaveClick)
 }
 
 //Lists Context
@@ -49,4 +51,9 @@ function btnRegisterUserClick(){
 //User Login
 function btnLoginClick(){
     loginValidation();
+}
+
+//Add Item
+function itemSaveClick(){
+    itemAddValidation();
 }

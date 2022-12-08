@@ -41,7 +41,9 @@ let databaseSetup = {
             let item = "CREATE TABLE IF NOT EXISTS item(" +
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "listId INTEGER NOT NULL," +
-                "description VARCHAR (15) NOT NULL," +
+                "name VARCHAR (15) NOT NULL," +
+                "quantity INTEGER NOT NULL," +
+                "description VARCHAR (20)," +
                 "completed VARCHAR (1)," +
                 "FOREIGN KEY(listId) REFERENCES list(id));"
 
