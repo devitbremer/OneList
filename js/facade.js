@@ -89,12 +89,12 @@ function loginValidation(){
 
     }
 }
-//Calls validation for Modify Review Page
-function updateValidation(){
-    if (doValidate_frmUpdate()){
-        console.info("Modify Form is valid")
+
+function itemAddValidation(){
+    if (doValidate_frmItemAdd()){
+        console.info("ItemAdd Form is valid")
     }
     else{
-        console.info("Modify Form is invalid")
+        console.info("ItemAdd Form is invalid")
     }
 }
