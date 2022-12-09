@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="js/lib/jquery-2.1.4.js"> </script>
-    <script src="js/lib/jquery.mobile-1.4.5.js"> </script>
-    <script src="js/lib/jquery.validate.js"></script>
+
     <script src="js/DAL.js"></script>
     <script src="js/database.js"></script>
     <script src="js/facade.js"></script>
@@ -14,8 +12,14 @@
     <script src="js/User.js"></script>
     <script src="js/List.js"></script>
     <script src="js/Item.js"></script>
-    <link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.css">
+
+    <script src="js/lib/jquery-2.1.4.js"> </script>
+    <script src="js/lib/jquery.mobile-1.4.5.js"> </script>
+    <script src="js/lib/jquery.validate.js"></script>
+
     <link rel="stylesheet" href="css/customStyle.css">
+    <link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.css">
+
     <title>DSB Review A2</title>
 </head>
 <body>
@@ -40,19 +44,43 @@
             <h2>My Lists</h2>
         </header>
         <section data-role="content">
-            <ul id="mainList" data-role="listview" data-filter="true" data-filter-placeholder=""  data-inset="true">
-                <li><a href="#Details"><span class="ui-li-count">7</span>Groceries</a></li>
-                <li><a href="#Details"><span class="ui-li-count">7</span>Work</a></li>
-                <li><a href="#Details"><span class="ui-li-count">4</span>Trip</a></li>
+            <ul data-role="listview" data-filter="true" class="ui-listview-inset" data-split-icon="edit">
+                <li>
+                    <a href="#Details">
+                        <span class="ui-li-count">7</span>Groceries
+                        <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
+                    </a>
+                </li>
+                <li>
+                    <a href="#Details">
+                        <span class="ui-li-count">4</span>Work
+                        <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
+                    </a>
+                </li>
+                <li>
+                    <a href="#Details">
+                        <span class="ui-li-count">12</span>College
+                        <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
+                    </a>
+                </li>
             </ul>
+            <div id="updateList" data-role="popup" data-theme="a" data-overlay-theme="b" class="ui-content">
+                <form id="updateListForm">
+                    <ul data-role="listview" data-inset="true">
+                        <li class="ui-field-contain">
+                            <label for="txtUpdateList">List</label>
+                            <input type="text" name="txtUpdateList" id="txtUpdateList" data-clear-btn="true">
+                        </li>
+                    </ul>
+                    <button id="btnUpdateList" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                </form>
+            </div>
             <a href="#AddList" class="ui-btn ui-icon-plus ui-btn-icon-left">New List</a>
         </section>
         <footer data-role="footer" data-position="fixed">
             <h2>&copy; 2022 OneList</h2>
         </footer>
     </div>
-
-
 
     <div id="Details" data-role="page">
 
@@ -76,28 +104,42 @@
         </header>
 
         <section data-role="content">
-            <ul data-role="listview"  data-inset="true" data-split-icon="check">
+            <ul data-role="listview"  data-inset="true"  data-filter="true" class="ui-listview-inset" data-split-icon="check">
                 <li>
-                    <a href="#Home">Apples</a>
-                    <a href="#Home">Purchase album</a>
+                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Apples</a>
+                    <a href="#">Completed</a>
                 </li>
                 <li>
-                    <a href="#Home">Grapes</a>
-                    <a href="#Home">Purchase album</a>
+                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Grapes</a>
+                    <a href="#">Completed</a>
                 </li>
                 <li>
-                    <a href="#Home">Oranges</a>
-                    <a href="#Home">Purchase album</a>
+                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Oranges</a>
+                    <a href="#">Completed</a>
                 </li>
                 <li>
-                    <a href="#Home">Bananas</a>
-                    <a href="#Home">Purchase album</a>
+                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Bananas</a>
+                    <a href="#">Completed</a>
                 </li>
                 <li>
-                    <a href="#Home">Watermelon</a>
-                    <a href="#Home">Purchase album</a>
+                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Watermelon</a>
+                    <a href="#">Completed</a>
                 </li>
             </ul>
+            <div id="updateItem" data-role="popup" data-theme="a" data-overlay-theme="b" class="ui-content">
+                <form id="updateItemForm">
+                    <ul data-role="listview" data-inset="true">
+                        <li class="ui-field-contain">
+                            <label for="txtUpdateItem">Item</label>
+                            <input type="text" name="txtUpdateItem" id="txtUpdateItem" data-clear-btn="true">
+
+                            <label for="txtUpdateItemQuantity">Quantity</label>
+                            <input type="text" name="txtUpdateItemQuantity" id="txtUpdateItemQuantity" data-clear-btn="true">
+                        </li>
+                    </ul>
+                    <button id="btnUpdateItem" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                </form>
+            </div>
             <a href="#AddItem" class="ui-btn ui-icon-plus ui-btn-icon-left">Add</a>
         </section>
         <footer data-role="footer" data-position="fixed">

@@ -4,7 +4,10 @@ function doValidation_newListForm(){
     let formNewList = $("#newListForm");
 
     formNewList.validate({
-        errorElement: 'label',
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('div'));
+        },
         rules:{
             txtNewList:{
                 required: true,
@@ -28,7 +31,10 @@ function doValidation_registerForm(){
     let registerForm = $("#registerForm");
 
     registerForm.validate({
-        errorElement: 'label',
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('div'));
+        },
         rules:{
             txtRegisterName:{
                 required: true,
@@ -91,7 +97,10 @@ function doValidation_loginForm(){
     let loginForm = $("#loginForm");
 
     loginForm.validate({
-        errorElement: 'label',
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('div'));
+        },
         rules:{
             txtLoginEmail:{
                 required: true,
@@ -120,7 +129,10 @@ function doValidate_frmItemAdd(){
     let formUpdate = $("#frmItemAdd");
 
     formUpdate.validate({
-        errorElement: 'label',
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('div'));
+        },
         rules:{
             txtItemAdd:{
                 required: true,
