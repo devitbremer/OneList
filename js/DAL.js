@@ -42,7 +42,7 @@
      create: function(_list){
          database.transaction(function(transaction){
              let sql  = "INSERT INTO list(userId, description) VALUES(?,?);"
-             let options = [_list.userId,_list.description]
+             let options = [_list.userId, _list.description]
 
              transaction.executeSql(sql, options, successCallback(transaction,"CREATE LIST"), errorCallback);
          })
