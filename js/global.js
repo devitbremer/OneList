@@ -12,6 +12,7 @@ function initDatabase(){
     }
 
     try {
+        //databaseSetup.dropTables();
         databaseSetup.createTables();
     }
     catch (e) {
@@ -21,7 +22,7 @@ function initDatabase(){
 
 function init(){
     //ToDo: Set event handlers.
-
+    getLists();
 
     //Lists Context
     $("#saveNewList").on("click", saveNewListClick);
@@ -33,14 +34,17 @@ function init(){
     //User Login
     $("#btnLogin").on("click", btnLoginClick)
 
-    //Item
+    //Items
     $("#itemSave").on("click", itemSaveClick)
+    $("#Details").on("pageshow", Details_Show);
 }
 
 //Lists Context
 function saveNewListClick(){
     createNewListValidation();
+    location.replace("#Home");
 }
+
 function Home_Show() {
     getLists()
 }
@@ -57,7 +61,13 @@ function btnLoginClick(){
     loginValidation();
 }
 
-//Add Item
+//Items
 function itemSaveClick(){
     itemAddValidation();
+    location.replace("#Details");
+
+}
+
+function Details_Show() {
+    getItems()
 }
