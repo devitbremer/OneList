@@ -25,6 +25,7 @@ function init(){
 
     //Lists Context
     $("#saveNewList").on("click", saveNewListClick);
+    $("#Home").on("pageshow", Home_Show);
 
     //User Registration
     $("#btnRegisterUser").on("click", btnRegisterUserClick)
@@ -32,13 +33,16 @@ function init(){
     //User Login
     $("#btnLogin").on("click", btnLoginClick)
 
-    //Add Item
+    //Item
     $("#itemSave").on("click", itemSaveClick)
 }
 
 //Lists Context
 function saveNewListClick(){
     createNewListValidation();
+}
+function Home_Show() {
+    getLists()
 }
 
 

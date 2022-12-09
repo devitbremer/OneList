@@ -1,8 +1,7 @@
 class List{
 
-    constructor(_description, _userId) {
+    constructor(_userId, _description) {
+        this.userId = _userId;
         this.description = _description;
-        this.dserID = _userId;
-
     }
 }

@@ -20,9 +20,18 @@ function createNewListValidation(){
 
         //Creates list object
         let _list = new List(
-            $("#txtNewList").val(),
-            localStorage.getItem("currentUserId")
+            localStorage.getItem("currentUserId"),
+            $("#txtNewList").val()
         )
+
+        try{
+            listOperations.create(_list);
+            console.info("List added to the database")
+        }
+        catch (error){
+            console.error(error.message)
+        }
+
     }
     else{
         console.info("Add Form is invalid")
@@ -40,7 +49,7 @@ function createNewUserValidation(){
 
         try{
             userOperations.register(user);
-            console.log("User registered successfully.")
+            console.log("User registered successfully.");
             location.replace("#Login");
         }
         catch (error){
@@ -77,7 +86,6 @@ function loginValidation(){
                 if(inputtedUser.email == databaseUser.email && inputtedUser.password == databaseUser.password){
                     localStorage.setItem("userLoggedIn", "true");
                     localStorage.setItem("currentUserId", databaseUser.userId)
-
                 }
             }
         }
@@ -97,4 +105,43 @@ function itemAddValidation(){
     else{
         console.info("ItemAdd Form is invalid")
     }
+}
+
+function getLists(){
+    var options = [localStorage.getItem("currentUserId")];
+
+    try{
+        listOperations.getAll(options,callback);
+
+        function callback(tx,results){
+            var htmlCode = "";
+
+            if (results.rows.length == 0){
+                htmlCode +=`
+                <li>
+                    <h2>Create your first List</h2>
+                </li>
+            `;
+            }
+            else {
+                for (let i = 0; i < results.rows.length ; i++) {
+                    var row = results.rows[i];
+                    var description = row['description']
+                }
+
+                htmlCode += `
+                    <li><a href="#Details"><span class="ui-li-count">7</span>${description}</a></li>
+                `;
+            }
+
+            var lists = $("#mainList");
+            lists = lists.html(htmlCode);
+            lists.listview("refresh");
+        }
+    }
+    catch (error){
+       console.error(error.message)
+    }
+
+
 }
