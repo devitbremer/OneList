@@ -16,7 +16,7 @@ function loadAppBasicData() {
 //Calls validation for Add Review Page
 function createNewListValidation(){
     if (doValidation_newListForm()){
-        console.info("Add Form is valid")
+        console.info("List is valid")
 
         //Creates list object
         let _list = new List(
@@ -34,7 +34,7 @@ function createNewListValidation(){
 
     }
     else{
-        console.info("Add Form is invalid")
+        console.info("List is invalid")
     }
 }
 
@@ -100,10 +100,28 @@ function loginValidation(){
 
 function itemAddValidation(){
     if (doValidate_frmItemAdd()){
-        console.info("ItemAdd Form is valid")
+        console.info("Item is valid")
+
+        //Creates list object
+        let _item = new Item(
+            localStorage.getItem("listId"),
+            $("#txtItemAdd").val(),
+            $("#txtItemQty").val(),
+            $("#txtItemDescription").val(),
+            false
+        )
+
+        try{
+            itemOperations.create(_item);
+            console.info("Item added to the database")
+        }
+        catch (error){
+            console.error(error.message)
+        }
+
     }
     else{
-        console.info("ItemAdd Form is invalid")
+        console.info("Item is invalid")
     }
 }
 
@@ -119,7 +137,7 @@ function getLists(){
             if (results.rows.length == 0){
                 htmlCode +=`
                 <li>
-                    <h2>Create your first List</h2>
+                    <h2>Nothing to see here</h2>
                 </li>
             `;
             }
@@ -127,21 +145,87 @@ function getLists(){
                 for (let i = 0; i < results.rows.length ; i++) {
                     var row = results.rows[i];
                     var description = row['description']
-                }
 
-                htmlCode += `
-                    <li><a href="#Details"><span class="ui-li-count">7</span>${description}</a></li>
+                    var count = itemOperations.countItems(row['id']);
+
+                    htmlCode += `
+                    <li>
+                        <a data-role="button" data-row-id=${row['id']} href="#">
+                            <span class="ui-li-count">${count}</span>${description}
+                            <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
+                        </a>
+                    </li>
                 `;
+                }
             }
 
             var lists = $("#mainList");
             lists = lists.html(htmlCode);
             lists.listview("refresh");
+
+            function clickHandler() {
+                localStorage.setItem("listId", $(this).attr("data-row-id") );
+                $("#mainList a:first-child").prop('href', '#Details');
+            }
+
+            $("#mainList a:first-child").on("click", clickHandler);
         }
     }
     catch (error){
        console.error(error.message)
     }
+}
 
+function getItems(){
+    var options = [localStorage.getItem("listId")];
 
+    try{
+        itemOperations.getByList(options,callback);
+
+        function callback(tx,results){
+            var htmlCode = "";
+
+            if (results.rows.length == 0){
+                htmlCode +=`
+                <li>
+                    <h2>Nothing to see here</h2>
+                </li>
+            `;
+            }
+            else {
+                for (let i = 0; i < results.rows.length ; i++) {
+                    var row = results.rows[i];
+                    var itemId = row['id']
+                    var name = row['name']
+                    var quantity = row['quantity']
+                    var description = row['description']
+
+                    htmlCode += `
+                    <li>
+                        <a data-role="button" data-row-id=${row['id']} href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}</a>
+                        <a href="#">Completed</a>
+                    </li>
+                `;
+                }
+/*                <li>
+                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Grapes</a>
+                    <a href="#">Completed</a>
+                </li>*/
+            }
+
+            var items = $("#itemList");
+            items = items.html(htmlCode);
+            items.listview("refresh");
+
+            function clickHandler() {
+                localStorage.setItem("itemId", $(this).attr("data-row-id") );
+                $("#itemList a:first-child").prop('href', '#updateItem');
+            }
+
+            $("#itemList a:first-child").on("click", clickHandler);
+        }
+    }
+    catch (error){
+        console.error(error.message)
+    }
 }

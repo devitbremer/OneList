@@ -83,8 +83,8 @@
 
      create: function(_item){
          database.transaction(function(transaction){
-             let sql  = "INSERT INTO item(listId, description, completed) VALUES(?,?,?);"
-             let options = [_item.listId, _item.description, _item.completed]
+             let sql  = "INSERT INTO item(listId, name, quantity, description, completed) VALUES(?,?,?,?,?);"
+             let options = [_item.listId, _item.name, _item.quantity, _item.description, _item.completed]
 
              transaction.executeSql(sql, options, successCallback(transaction,"CREATE ITEM"), errorCallback);
          })
@@ -106,6 +106,16 @@
 
              let sql = "SELECT * FROM item WHERE listId=?;"
              transaction.executeSql(sql, [_listId], listItemCallback, errorCallback);
+         })
+     },
+
+     countItems: function(_listId, countItemCallback){
+         database.transaction(function(transaction){
+
+             let sql = "SELECT * FROM item WHERE listId=?;"
+             transaction.executeSql(sql, [_listId], countItemCallback, errorCallback);
+             var count = results.rows.length;
+             countItemCallback(count);
          })
      },
 
