@@ -13,17 +13,28 @@
      update: function(_user){
          database.transaction(function (tx){
 
-             let sql = "UPDATE user SET name=?, email=?, password=? WHERE id=?;"
-             let options = [_user.name, _user.email, _user.password, _user.id]
+             let sql = "UPDATE user SET fullName=?, email=?, password=? WHERE id=?;"
+             let options = [_user.fullName, _user.email, _user.password, _user.userId]
 
              tx.executeSql(sql, options, successCallback(tx,"UPDATE USER"), errorCallback);
          })
      },
 
+     saveProfilePic: function(imageId, userId){
+        database.transaction(function (tx){
+
+            let sql = "UPDATE user SET profilePic=? WHERE id=?";
+
+            tx.executeSql(sql, [imageId, userId], successCallback(tx, "SAVE PROFILE PICTURE", errorCallback))
+
+        })
+
+     },
+
      getById: function(_userID, getUserCallback){
          database.transaction(function (tx){
 
-             let sql = "SELECT * FROM user WHERE userId=?;"
+             let sql = "SELECT * FROM user WHERE id=?;"
              tx.executeSql(sql, [_userID], getUserCallback, errorCallback);
          })
      },

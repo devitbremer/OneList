@@ -229,3 +229,140 @@ function getItems(){
         console.error(error.message)
     }
 }
+
+//Camera handler
+function takePicture(){
+    navigator.camera.getPicture(onSuccess, onFail, {  
+        quality: 80, 
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA,
+        encodingType: Camera.EncodingType.JPEG, 
+        mediaType: Camera.MediaType.PICTURE,
+        correctOrientation: true,
+        cameraDirection: Camera.Direction.FRONT,
+        targetWidth: 400
+
+     });  
+     
+     function onSuccess(imageData) {
+
+        //Get elements
+        var profilePagePic = $("#profilePagePic");
+        var homePanelPic = $("#homePanelPic");
+        var detailsPanelPic = $("#detailsPanelPic");
+        var addItemPanelPic = $("#addItemPanelPic");
+        var addListPanelPic = $("#addListPanelPic");
+        var profilePanelPic = $("#profilePanelPic");
+
+        //Update elements
+        profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
+        homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        addItemPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        addListPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+
+        
+        //Save on local storage??
+        localStorage.setItem("userProfilePic", imageData);
+    }
+
+    function onFail(message) { 
+        alert('Failed because: ' + message); 
+    } 
+}
+
+
+//Image galerry handler
+function selectPicture(){
+    
+    navigator.camera.getPicture(onSuccess, onFail, {  
+        quality: 80, 
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        encodingType: Camera.EncodingType.JPEG, 
+        mediaType: Camera.MediaType.PICTURE,
+        correctOrientation: true,
+        cameraDirection: Camera.Direction.FRONT,
+        targetWidth: 400
+
+     });  
+     
+     function onSuccess(imageData) {
+
+        //Get elements
+        var profilePagePic = $("#profilePagePic");
+        var homePanelPic = $("#homePanelPic");
+        var detailsPanelPic = $("#detailsPanelPic");
+        var addItemPanelPic = $("#addItemPanelPic");
+        var addListPanelPic = $("#addListPanelPic");
+        var profilePanelPic = $("#profilePanelPic");
+
+        //Update elements
+        profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
+        homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        addItemPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        addListPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+
+        
+        //Save on local storage??
+        localStorage.setItem("userProfilePic", imageData);
+    }
+
+    function onFail(message) { 
+        alert('Failed because: ' + message); 
+    } 
+}
+
+function saveUserProfile(){
+
+    if(doValidation_userProfileForm()){
+        let user = new User();
+        user.userId = localStorage.getItem("currentUserId")
+        user.email = $("#email").val();
+        user.fullName = $("#fullName").val();
+        user.password = $("#confirmPassword").val();
+
+        try{
+            userOperations.update(user);
+            location.replace("#Profile");
+        }
+        catch (error){
+            console.error(error.message)
+        }
+    }
+    else{
+        console.error("Update user profile form is invalid.")
+    }
+}
+
+function loadUserProfile(){
+
+    userOperations.getById(localStorage.getItem("currentUserId"), callback)
+
+    function callback(transaction, results){
+
+        let row = results.rows[0];
+        $("#fullName").val(row["fullName"]);
+        $("#email").val(row["email"]);
+        $("#password").val(row["password"]);
+        $("#confirmPassword").val(row["password"]);
+    }
+}
+
+//Load welcome message on menu panel
+function loadWelcome(){
+
+    userOperations.getById(localStorage.getItem("currentUserId"), callback)
+    function callback(transaction, results){
+
+        let row = results.rows[0];
+        let fullName = row["fullName"];
+
+        $(".welcomeDiv").append("<h3>Hello "+fullName+".</h3>")
+    }
+
+    
+}
