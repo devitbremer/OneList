@@ -133,11 +133,14 @@ function loginValidation(){
                     databaseUser.email = row["email"];
                     databaseUser.password = row["password"];
 
-
                     // Compares 2 sets os credential
                     if(inputtedUser.email == databaseUser.email && inputtedUser.password == databaseUser.password){
                         localStorage.setItem("userLoggedIn", "true");
                         localStorage.setItem("currentUserId", databaseUser.userId)
+                        location.replace("#Home")
+                    }
+                    else {
+                        location.reload();
                     }
                 }
             }
