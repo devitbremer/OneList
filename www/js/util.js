@@ -84,6 +84,55 @@ function doValidation_registerForm(){
     return registerForm.valid();
 }
 
+function doValidation_userProfileForm(){
+    let userProfileForm = $("#userProfileForm");
+
+    userProfileForm.validate({
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('div'));
+        },
+        rules:{
+            fullName:{
+                required: true,
+                minlength: 5,
+                maxlength: 30
+            },
+            password:{
+                required: true,
+                minlength: 8,
+                maxlength: 15,
+                pwdStrength: true
+            },
+            confirmPassword:{
+                required: true,
+                equalTo: "#password"
+            }
+
+        },
+        messages:{
+            fullName:{
+                required: "Please enter your full name.",
+                minlength: "Your name must have at least 2 characters.",
+                maxlength: "Your name can`t have more than 15 characters."
+            },
+            password:{
+                required: "Please enter a password.",
+                minlength: "Password must have at least 8 characters.",
+                maxlength: "Password can`t have more than 15 characters.",
+                pwdStrength: "Password must meet complexity requirements"
+            },
+            confirmPassword:{
+                required: "Please confirm your password.",
+                equalTo: "Passwords don`t match."
+
+            },
+
+        }
+    })
+    return userProfileForm.valid();
+}
+
 //custom password strength validation
 jQuery.validator.addMethod("pwdStrength",
     function(value, element){

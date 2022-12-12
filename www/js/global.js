@@ -1,8 +1,8 @@
 $(document).ready(function (){
     initDatabase();
     init();
-
 })
+
 function initDatabase(){
     try{
         databaseSetup.createDatabase();
@@ -21,8 +21,12 @@ function initDatabase(){
 }
 
 function init(){
+
     //ToDo: Set event handlers.
     getLists();
+
+    //Load Welcome Message on menu panel
+    loadWelcome();
 
     //Lists Context
     $("#saveNewList").on("click", saveNewListClick);
@@ -37,6 +41,12 @@ function init(){
     //Items
     $("#itemSave").on("click", itemSaveClick)
     $("#Details").on("pageshow", Details_Show);
+
+    //User Porfile
+    $("#cameraTakePicture").on("click", takePictureClick)
+    $("#fileSelectPicture").on("click", selectPictureClick)
+    $("#profileSave").on("click", profileSaveClick)
+    $("#Profile").on("pageshow", profileShow)
 }
 
 //Lists Context
@@ -47,6 +57,7 @@ function saveNewListClick(){
 
 function Home_Show() {
     getLists()
+
 }
 
 
@@ -70,4 +81,21 @@ function itemSaveClick(){
 
 function Details_Show() {
     getItems()
+}
+
+// User Profile
+function selectPictureClick(){
+    selectPicture()
+}
+
+function takePictureClick(){
+    takePicture()
+}
+
+function profileSaveClick(){
+    saveUserProfile()
+}
+
+function profileShow(){
+    loadUserProfile()
 }

@@ -30,7 +30,8 @@ let databaseSetup = {
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "fullName VARCHAR (30) NOT NULL," +
                 "email VARCHAR (50) NOT NULL," +
-                "password VARCHAR (15) NOT NULL);"
+                "password VARCHAR (15) NOT NULL,"+
+                "profilePic VARCHAR(20));"
 
             let list = "CREATE TABLE IF NOT EXISTS list(" +
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +

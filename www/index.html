@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
+
     <script src="js/lib/jquery-2.1.4.js"> </script>
     <script src="js/lib/jquery.mobile-1.4.5.js"> </script>
     <script src="js/lib/jquery.validate.js"></script>
@@ -28,11 +31,11 @@
     <div id="Home" data-role="page">
         <div data-role="panel" data-display="overlay" data-position="left" id="profilePanel">
 
-            <div class="profileImageContainer">
-                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            <div class="circular--portrait">
+                <img id="homePanelPic" src="img/pexels-clay-elliot-14634924.jpg">
             </div>
-            <div>
-                <h3>Hello {user_name} </h3>
+            <div class="welcomeDiv">
+                <!--h3>Hello {user_name} </h3-->
             </div>
             <div>
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
@@ -87,11 +90,11 @@
     <div id="Details" data-role="page">
 
         <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelDetailsPage">
-            <div class="profileImageContainer">
-                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            <div class="circular--portrait">
+                <img id="detailsPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
             </div>
-            <div>
-                <h3>Hello {user_name} </h3>
+            <div class="welcomeDiv">
+                <!--h3>Hello {user_name} </h3-->
             </div>
             <div>
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
@@ -152,11 +155,11 @@
     <div id="AddItem" data-role="page">
 
         <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelAddItemPage">
-            <div class="profileImageContainer">
-                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            <div class="circular--portrait">
+                <img id="addItemPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
             </div>
-            <div>
-                <h3>Hello {user_name} </h3>
+            <div class="welcomeDiv">
+                <!--h3>Hello {user_name} </h3-->
             </div>
             <div>
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
@@ -193,11 +196,11 @@
     <div id="AddList" data-role="page">
 
         <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelAddListPage">
-            <div class="profileImageContainer">
-                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            <div class="circular--portrait">
+                <img id="addListPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
             </div>
-            <div>
-                <h3>Hello {user_name} </h3>
+            <div class="welcomeDiv">
+                <!--h3>Hello {user_name} </h3-->
             </div>
             <div>
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
@@ -231,11 +234,11 @@
     <div id="Profile" data-role="page">
 
         <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelProfilePage">
-            <div class="profileImageContainer">
-                <img class="profileImage" src="img/pexels-hannah-nelson-1085517.jpg">
+            <div class="circular--portrait">
+                <img id="profilePanelPic" src="img/pexels-clay-elliot-14634924.jpg">
             </div>
-            <div>
-                <h3>Hello {user_name} </h3>
+            <div class="welcomeDiv">
+                <!--h3>Hello {user_name} </h3-->
             </div>
             <div>
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-btn-icon-left">Lists</a>
@@ -250,13 +253,15 @@
         </header>
 
         <section data-role="content">
-            <form>
+            <div class="circular--portrait">
+                <img id="profilePagePic" src="img/pexels-clay-elliot-14634924.jpg">
+            </div>
+            <div data-role="control-group" data-type="horizontal">
+                <a href="#" id = "cameraTakePicture" class="ui-btn ui-btn-icon-left ui-corner-all ui-icon-camera">Take Photo</a>
+                <a href="#" id = "fileSelectPicture" class="ui-btn ui-btn-icon-left ui-corner-all ui-icon-user">Select Photo</a>
+            </div>
+            <form id="userProfileForm">
                 <ul data-role="listview" data-inset="true">
-                    <li style="height: 200px;">
-                        <div class="profilePageImageContainer">
-                            <img class="profilePageImage" src="img/pexels-hannah-nelson-1085517.jpg">
-                        </div>
-                    </li>
                     <li class="ui-field-contain">
                         <div>
                             <label for="fullName">Name</label>
@@ -264,7 +269,7 @@
                         </div>
                         <div>
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" data-clear-btn="true">
+                            <input disabled type="text" name="email" id="email" data-clear-btn="true">
                         </div>
 
                         <div>
@@ -272,9 +277,14 @@
                             <input type="password" name="password" id="password" data-clear-btn="true">
                         </div>
 
+                        <div>
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword" data-clear-btn="true">
+                        </div>
+
                     </li>
                 </ul>
-                <button id="profileSave" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                <button id="profileSave" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Update</button>
             </form>
         </section>
         <footer data-role="footer" data-position="fixed">
