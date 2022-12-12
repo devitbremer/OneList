@@ -76,6 +76,7 @@ function btnUpdateListClick(){
 
 function btnDeleteListClick(){
     deleteList();
+}
 
 function Home_Show() {
     getLists()
@@ -113,6 +114,7 @@ function itemSaveClick(){
 
 function btnUpdateItemClick(){
     updateItemValidation();
+}
 
 function Details_Show() {
     getItems()
@@ -133,5 +135,4 @@ function profileSaveClick(){
 
 function profileShow(){
     loadUserProfile()
-
 }
