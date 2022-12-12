@@ -21,9 +21,13 @@ function initDatabase(){
 }
 
 function init(){
+
     //ToDo: Set event handlers.
     isUserLoggedIn();
     getLists();
+
+    //Load Welcome Message on menu panel
+    loadWelcome();
 
     //Lists Context
     $("#Home").on("pageshow", Home_Show);
@@ -43,6 +47,13 @@ function init(){
     $("#AddItem").on("pageshow", AddItem_Show);
     $("#itemSave").on("click", itemSaveClick);
     $("#btnUpdateItem").on("click", btnUpdateItemClick);
+
+    //User Porfile
+    $("#cameraTakePicture").on("click", takePictureClick)
+    $("#fileSelectPicture").on("click", selectPictureClick)
+    $("#profileSave").on("click", profileSaveClick)
+    $("#Profile").on("pageshow", profileShow)
+
 }
 
 //Lists Context
@@ -58,12 +69,18 @@ function saveNewListClick(){
     createNewListValidation();
 }
 
+
 function btnUpdateListClick(){
     updateListValidation();
 }
 
 function btnDeleteListClick(){
     deleteList();
+
+function Home_Show() {
+    getLists()
+
+
 }
 
 
@@ -93,6 +110,28 @@ function itemSaveClick(){
     itemAddValidation();
 }
 
+
 function btnUpdateItemClick(){
     updateItemValidation();
+
+function Details_Show() {
+    getItems()
+}
+
+// User Profile
+function selectPictureClick(){
+    selectPicture()
+}
+
+function takePictureClick(){
+    takePicture()
+}
+
+function profileSaveClick(){
+    saveUserProfile()
+}
+
+function profileShow(){
+    loadUserProfile()
+
 }
