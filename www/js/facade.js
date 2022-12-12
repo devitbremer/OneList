@@ -240,9 +240,9 @@ function getLists(){
 
                     htmlCode += `
                     <li>
-                        <a data-role="button" data-row-id=${row['id']} data-row-description=${row['description']} href="#">
+                        <a data-role="button" data-row-id="${row['id']}" data-row-description="${row['description']}" href="#">
                             <span class="ui-li-count">Items: ${countItems}</span>${description}
-                            <a data-role="button" data-row-id=${row['id']} data-row-description=${row['description']} href="#" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
+                            <a data-role="button" data-row-id="${row['id']}" data-row-description="${row['description']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
                         </a>
                     </li>
                 `;
@@ -306,10 +306,10 @@ function getItems(){
 
                     htmlCode += `
                     <li>
-                        <a data-role="button" data-row-id=${row['id']} href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
+                        <a data-role="button" data-row-id="${row['id']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
                             <span class="ui-li-count">Qty: ${quantity}</span>
                             <p>${description}</p>
-                            <a data-role="button" data-row-id=${row['id']} href="#"></a>
+                            <a data-role="button" data-row-id="${row['id']}" href="#"></a>
                         </a>
                     </li>
                 `;
