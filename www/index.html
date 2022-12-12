@@ -74,7 +74,8 @@
                             <input type="text" name="txtUpdateList" id="txtUpdateList" data-clear-btn="true">
                         </li>
                     </ul>
-                    <button id="btnUpdateList" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                    <button id="btnUpdateList" type="submit" class="ui-btn ui-btn-active ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                    <button id="btnDeleteList" type="submit" class="ui-btn ui-btn-b ui-corner-all ui-btn-icon-left ui-icon-delete">Delete</button>
                 </form>
             </div>
             <a href="#AddList" class="ui-btn ui-icon-plus ui-btn-icon-left">New List</a>
@@ -102,7 +103,7 @@
 
         <header data-role="header" data-theme="a" data-position="fixed">
             <a href="#profilePanelDetailsPage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
-            <h2>{ListName}</h2>
+            <h2 id="detailsTitle"></h2>
         </header>
 
         <section data-role="content">
@@ -137,6 +138,9 @@
 
                             <label for="txtUpdateItemQuantity">Quantity</label>
                             <input type="text" name="txtUpdateItemQuantity" id="txtUpdateItemQuantity" data-clear-btn="true">
+
+                            <label for="txtUpdateItemDescription">Description</label>
+                            <input type="text" name="txtUpdateItemDescription" id="txtUpdateItemDescription" data-clear-btn="true">
                         </li>
                     </ul>
                     <button id="btnUpdateItem" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
@@ -167,7 +171,7 @@
 
         <header data-role="header" data-theme="a" data-position="fixed">
             <a href="#profilePanelAddItemPage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
-            <h2>{ListName}</h2>
+            <h2 id="addItemPageTitle">{ListName}</h2>
         </header>
 
         <section data-role="content">
@@ -297,6 +301,7 @@
                         <input type="password" name="txtLoginPassword" id="txtLoginPassword" data-clear-btn="true">
                         <!--Fix line breaks on CSS -->
                         <br>
+                        <p id="userError"></p>
                         <br>
                         <button id="btnLogin" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Login</button>
                     </li>

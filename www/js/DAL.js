@@ -48,11 +48,11 @@
          })
      },
 
-     rename: function(_list){
+     rename: function(_listId, _newName){
          database.transaction(function(transaction){
 
              let sql = "UPDATE list SET description=? WHERE id=?;"
-             let options = [_list.description, _list.id]
+             let options = [_newName, _listId]
 
              transaction.executeSql(sql, options, successCallback(transaction,"RENAME LIST"), errorCallback);
          })
@@ -61,7 +61,7 @@
      getAll: function(_userID, getAllListCallback){
          database.transaction(function(transaction){
 
-             let sql = "SELECT * FROM list WHERE userId=?;"
+             let sql = "SELECT l.id, l.description, COUNT(i.id) AS itemCount FROM list l LEFT JOIN item i on i.listId = l.id WHERE userId=? GROUP BY l.description ORDER BY l.description;"
              transaction.executeSql(sql, [_userID], getAllListCallback, errorCallback);
          })
      },
@@ -90,11 +90,11 @@
          })
      },
 
-     edit: function(_item){
+     edit: function(_item, _itemId){
          database.transaction(function(transaction){
 
-             let sql = "UPDATE item SET description=?, completed=? WHERE id=?;"
-             let options = [_item.description, _item.completed, _item.id]
+             let sql = "UPDATE item SET name=?, quantity=?, description=? WHERE id=?;"
+             let options = [_item.name, _item.quantity, _item.description, _itemId]
 
              transaction.executeSql(sql, options, successCallback(transaction,"UPDATE ITEM"), errorCallback);
          })
@@ -104,18 +104,16 @@
      getByList: function(_listId, listItemCallback){
          database.transaction(function(transaction){
 
-             let sql = "SELECT * FROM item WHERE listId=?;"
+             let sql = "SELECT * FROM item WHERE listId=? ORDER BY name;"
              transaction.executeSql(sql, [_listId], listItemCallback, errorCallback);
          })
      },
 
-     countItems: function(_listId, countItemCallback){
+     getById: function(_itemId, listItemCallback){
          database.transaction(function(transaction){
 
-             let sql = "SELECT * FROM item WHERE listId=?;"
-             transaction.executeSql(sql, [_listId], countItemCallback, errorCallback);
-             var count = results.rows.length;
-             countItemCallback(count);
+             let sql = "SELECT * FROM item WHERE id=?;"
+             transaction.executeSql(sql, [_itemId], listItemCallback, errorCallback);
          })
      },
 

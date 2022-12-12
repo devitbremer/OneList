@@ -1,8 +1,8 @@
 $(document).ready(function (){
     initDatabase();
     init();
-
 })
+
 function initDatabase(){
     try{
         databaseSetup.createDatabase();
@@ -22,11 +22,15 @@ function initDatabase(){
 
 function init(){
     //ToDo: Set event handlers.
+    isUserLoggedIn();
     getLists();
 
     //Lists Context
-    $("#saveNewList").on("click", saveNewListClick);
     $("#Home").on("pageshow", Home_Show);
+    $("#AddList").on("pageshow", AddList_Show);
+    $("#saveNewList").on("click", saveNewListClick);
+    $("#btnUpdateList").on("click", btnUpdateListClick);
+    $("#btnDeleteList").on("click", btnDeleteListClick);
 
     //User Registration
     $("#btnRegisterUser").on("click", btnRegisterUserClick)
@@ -35,18 +39,31 @@ function init(){
     $("#btnLogin").on("click", btnLoginClick)
 
     //Items
-    $("#itemSave").on("click", itemSaveClick)
     $("#Details").on("pageshow", Details_Show);
+    $("#AddItem").on("pageshow", AddItem_Show);
+    $("#itemSave").on("click", itemSaveClick);
+    $("#btnUpdateItem").on("click", btnUpdateItemClick);
 }
 
 //Lists Context
-function saveNewListClick(){
-    createNewListValidation();
-    location.replace("#Home");
-}
-
 function Home_Show() {
     getLists()
+}
+
+function AddList_Show(){
+    cleartxtNewListInput()
+}
+
+function saveNewListClick(){
+    createNewListValidation();
+}
+
+function btnUpdateListClick(){
+    updateListValidation();
+}
+
+function btnDeleteListClick(){
+    deleteList();
 }
 
 
@@ -62,12 +79,20 @@ function btnLoginClick(){
 }
 
 //Items
-function itemSaveClick(){
-    itemAddValidation();
-    location.replace("#Details");
-
+function Details_Show() {
+    setDetailsPageTitle();
+    getItems();
 }
 
-function Details_Show() {
-    getItems()
+function AddItem_Show(){
+    setAddItemPageTitle();
+    cleartxtNewItemInputs();
+}
+
+function itemSaveClick(){
+    itemAddValidation();
+}
+
+function btnUpdateItemClick(){
+    updateItemValidation();
 }

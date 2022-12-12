@@ -18,13 +18,41 @@ function doValidation_newListForm(){
         },
         messages:{
             txtNewList:{
-                required: "A list must have a name.",
-                minlength: "The list name must have at least 2 characters.",
-                maxlength: "The list name cant have no more than 15 characters."
+                required: "Name is required.",
+                minlength: "Min 2 characters.",
+                maxlength: "Max 15 characters."
             }
         }
     })
     return formNewList.valid();
+}
+
+function doValidation_updateListForm(){
+
+    let updateListForm = $("#updateListForm");
+
+    updateListForm.validate({
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('div'));
+        },
+        rules:{
+            txtUpdateList:{
+                required: true,
+                minlength: 2,
+                maxlength: 15
+            }
+
+        },
+        messages:{
+            txtUpdateList:{
+                required: "Name is required.",
+                minlength: "Min 2 characters.",
+                maxlength: "Max 15 characters."
+            }
+        }
+    })
+    return updateListForm.valid();
 }
 
 function doValidation_registerForm(){
@@ -59,22 +87,22 @@ function doValidation_registerForm(){
         },
         messages:{
             txtRegisterName:{
-                required: "Please enter your full name.",
-                minlength: "Your name must have at least 2 characters.",
-                maxlength: "Your name can`t have more than 15 characters."
+                required: "Name is required.",
+                minlength: "Min 2 characters.",
+                maxlength: "Min 15 characters."
             },
             txtRegisterEmail:{
-                required: "Please enter your email address.",
-                email: "This does not look like a valid email address."
+                required: "Email is required.",
+                email: "Invalid email."
             },
             txtRegisterPassword:{
-                required: "Please enter a password.",
-                minlength: "Password must have at least 8 characters.",
-                maxlength: "Password can`t have more than 15 characters.",
-                pwdStrength: "Password must meet complexity requirements"
+                required: "Password is required.",
+                minlength: "Min 8 characters.",
+                maxlength: "Min 15 characters.",
+                pwdStrength: "Weak password"
             },
             txtRegisterConfirmPassword:{
-                required: "Please confirm your password.",
+                required: "Confirm password.",
                 equalTo: "Passwords don`t match."
 
             },
@@ -103,7 +131,7 @@ function doValidation_loginForm(){
         },
         rules:{
             txtLoginEmail:{
-                required: true,
+                required: true
             },
 
             txtLoginPassword:{
@@ -113,11 +141,11 @@ function doValidation_loginForm(){
         },
         messages:{
             txtLoginEmail:{
-                required: "Email can`t be empty."
+                required: "Email is required."
             },
 
             txtLoginPassword:{
-                required: "Password can`t be empty."
+                required: "Password is required."
             },
 
         }
@@ -149,16 +177,56 @@ function doValidate_frmItemAdd(){
         },
         messages:{
             txtItemAdd:{
-                required: "Please enter item name",
-                minlength: "Item must be at least 2 char long",
-                maxlength: "Item must be maximum 15 char long"
+                required: "Name is required",
+                minlength: "Min 2 characters",
+                maxlength: "Min 15 characters"
             },
             txtItemQty:{
-                required: "Please enter quantity",
-                min: "Minimum quantity is 1"
+                required: "Quantity is required",
+                min: "Min 1"
             },
             txtItemDescription:{
-                maxlength: "Description must be maximum 20 char long"
+                maxlength: "Max 20 characters"
+            }
+        }
+    })
+    return formUpdate.valid();
+}
+
+function doValidate_frmItemUpdate(){
+    let formUpdate = $("#updateItemForm");
+
+    formUpdate.validate({
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            error.insertAfter(element.closest('div'));
+        },
+        rules:{
+            txtUpdateItem:{
+                required: true,
+                minlength: 2,
+                maxlength: 15
+            },
+            txtUpdateItemQuantity:{
+                required: true,
+                min: 1
+            },
+            txtUpdateItemDescription:{
+                maxlength: 20
+            }
+        },
+        messages:{
+            txtUpdateItem:{
+                required: "Name is required",
+                minlength: "Min 2 characters",
+                maxlength: "Min 15 characters"
+            },
+            txtUpdateItemQuantity:{
+                required: "Quantity is required",
+                min: "Min 1"
+            },
+            txtUpdateItemDescription:{
+                maxlength: "Max 20 characters"
             }
         }
     })
