@@ -13,6 +13,15 @@ function loadAppBasicData() {
 
     }*/
 }
+function isUserLoggedIn(){
+    if (localStorage.getItem("userLoggedIn")){
+        location.replace("#Home")
+    }
+    else {
+        location.replace("#Login")
+    }
+}
+
 //Calls validation for Add Review Page
 function createNewListValidation(){
     if (doValidation_newListForm()){
@@ -27,6 +36,7 @@ function createNewListValidation(){
         try{
             listOperations.create(_list);
             console.info("List added to the database")
+            location.replace("#Home");
         }
         catch (error){
             console.error(error.message)
@@ -36,6 +46,44 @@ function createNewListValidation(){
     else{
         console.info("List is invalid")
     }
+}
+
+function updateListValidation(){
+    if (doValidation_updateListForm()){
+        console.info("List is valid")
+
+        let listId = localStorage.getItem("listId")
+        let listName = $("#txtUpdateList").val()
+
+        try{
+            listOperations.rename(listId, listName);
+            console.info("List updated on the database")
+            location.replace("#Home");
+        }
+        catch (error){
+            console.error(error.message)
+        }
+
+    }
+    else{
+        console.info("List is invalid")
+    }
+}
+
+function deleteList(){
+    let listId = localStorage.getItem("listId")
+
+    try{
+        listOperations.delete(listId)
+        location.reload();
+    }
+    catch (error){
+        console.error(error.message)
+    }
+}
+
+function cleartxtNewListInput(){
+    $("#txtNewList").val("");
 }
 
 function createNewUserValidation(){
@@ -70,32 +118,47 @@ function loginValidation(){
 
         var databaseUser = new User;
 
-
         //Gets credentials from database.
         try{
             userOperations.getByEmail(inputtedUser.email, callback)
 
             function callback(transaction, results){
-                let row = results.rows[0];
-                databaseUser.userId = row["id"];
-                databaseUser.email = row["email"];
-                databaseUser.password = row["password"];
+                if (results.rows.length == 0){
+                    //document.getElementById("userError").innerHTML = "User doesn't exist";
+                    location.reload();
+                }
+                else {
+                    let row = results.rows[0];
+                    databaseUser.userId = row["id"];
+                    databaseUser.email = row["email"];
+                    databaseUser.password = row["password"];
 
-
-                // Compares 2 sets os credential
-                if(inputtedUser.email == databaseUser.email && inputtedUser.password == databaseUser.password){
-                    localStorage.setItem("userLoggedIn", "true");
-                    localStorage.setItem("currentUserId", databaseUser.userId)
+                    // Compares 2 sets os credential
+                    if(inputtedUser.email == databaseUser.email && inputtedUser.password == databaseUser.password){
+                        localStorage.setItem("userLoggedIn", "true");
+                        localStorage.setItem("currentUserId", databaseUser.userId)
+                        location.replace("#Home")
+                    }
+                    else {
+                        location.reload();
+                    }
                 }
             }
         }
         catch (error){
             console.error(error.message)
         }
-
-
-
     }
+}
+
+function cleartxtNewItemInputs(){
+    $("#txtItemAdd").val("");
+    $("#txtItemDescription").val("");
+}
+
+function setAddItemPageTitle(){
+    let addItemPageTitle = localStorage.getItem("listName");
+    document.getElementById("addItemPageTitle").innerHTML = addItemPageTitle;
 }
 
 function itemAddValidation(){
@@ -114,7 +177,35 @@ function itemAddValidation(){
         try{
             itemOperations.create(_item);
             console.info("Item added to the database")
+            location.replace("#Details");
         }
+        catch (error){
+            console.error(error.message)
+        }
+
+    }
+    else{
+        console.info("Item is invalid")
+    }
+}
+
+function updateItemValidation(){
+    if (doValidate_frmItemUpdate()){
+        console.info("Item is valid")
+
+        let _item = new Item(
+            listId = localStorage.getItem("listId"),
+            itemName = $("#txtUpdateItem").val(),
+            itemQuantity = $("#txtUpdateItemQuantity").val(),
+            itemDescription = $("#txtUpdateItemDescription").val()
+        )
+        let itemId = localStorage.getItem("itemId")
+
+            try{
+            itemOperations.edit(_item, itemId);
+            console.info("Item added to the database")
+            location.replace("#Details");
+            }
         catch (error){
             console.error(error.message)
         }
@@ -145,14 +236,13 @@ function getLists(){
                 for (let i = 0; i < results.rows.length ; i++) {
                     var row = results.rows[i];
                     var description = row['description']
-
-                    var count = itemOperations.countItems(row['id']);
+                    let countItems = row['itemCount'];
 
                     htmlCode += `
                     <li>
-                        <a data-role="button" data-row-id=${row['id']} href="#">
-                            <span class="ui-li-count">${count}</span>${description}
-                            <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
+                        <a data-role="button" data-row-id=${row['id']} data-row-description=${row['description']} href="#">
+                            <span class="ui-li-count">Items: ${countItems}</span>${description}
+                            <a data-role="button" data-row-id=${row['id']} data-row-description=${row['description']} href="#" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
                         </a>
                     </li>
                 `;
@@ -163,17 +253,31 @@ function getLists(){
             lists = lists.html(htmlCode);
             lists.listview("refresh");
 
-            function clickHandler() {
+            function clickHandlerList() {
                 localStorage.setItem("listId", $(this).attr("data-row-id") );
+                localStorage.setItem("listName", $(this).attr("data-row-description") );
                 $("#mainList a:first-child").prop('href', '#Details');
             }
 
-            $("#mainList a:first-child").on("click", clickHandler);
+            $("#mainList a:first-child").on("click", clickHandlerList);
+
+            function clickHandlerEditList() {
+                localStorage.setItem("listId", $(this).attr("data-row-id") );
+                $("#mainList a + a").prop('href', '#updateList');
+                $("#txtUpdateList").val($(this).attr("data-row-description"));
+            }
+
+            $("#mainList a + a").on("click", clickHandlerEditList);
         }
     }
     catch (error){
        console.error(error.message)
     }
+}
+
+function setDetailsPageTitle(){
+    let detailsTitle = localStorage.getItem("listName");
+    document.getElementById("detailsTitle").innerHTML = detailsTitle;
 }
 
 function getItems(){
@@ -202,27 +306,46 @@ function getItems(){
 
                     htmlCode += `
                     <li>
-                        <a data-role="button" data-row-id=${row['id']} href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}</a>
-                        <a href="#">Completed</a>
+                        <a data-role="button" data-row-id=${row['id']} href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
+                            <span class="ui-li-count">Qty: ${quantity}</span>
+                            <p>${description}</p>
+                            <a data-role="button" data-row-id=${row['id']} href="#"></a>
+                        </a>
                     </li>
                 `;
                 }
-/*                <li>
-                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Grapes</a>
-                    <a href="#">Completed</a>
-                </li>*/
             }
 
             var items = $("#itemList");
             items = items.html(htmlCode);
             items.listview("refresh");
 
-            function clickHandler() {
+            function clickHandlerEditItem() {
                 localStorage.setItem("itemId", $(this).attr("data-row-id") );
                 $("#itemList a:first-child").prop('href', '#updateItem');
+
+                let options = $(this).attr("data-row-id")
+                itemOperations.getById(options, callbackItem)
+                function callbackItem(tx,results){
+                    let row = results.rows[0]
+                    let itemName = row['name']
+                    let itemQuantity = row['quantity']
+                    let itemDescription = row['description']
+                    $("#txtUpdateItem").val(itemName),
+                    $("#txtUpdateItemQuantity").val(itemQuantity),
+                    $("#txtUpdateItemDescription").val(itemDescription)
+                }
             }
 
-            $("#itemList a:first-child").on("click", clickHandler);
+            $("#itemList a:first-child").on("click", clickHandlerEditItem);
+
+            function clickHandlerCompleteItem() {
+                let itemId = $(this).attr("data-row-id");
+                itemOperations.delete(itemId);
+                location.reload();
+            }
+
+            $("#itemList a + a").on("click", clickHandlerCompleteItem);
         }
     }
     catch (error){
