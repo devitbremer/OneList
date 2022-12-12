@@ -78,12 +78,6 @@ function btnDeleteListClick(){
     deleteList();
 }
 
-function Home_Show() {
-    getLists()
-
-
-}
-
 
 //User Registration
 function btnRegisterUserClick(){
@@ -114,10 +108,6 @@ function itemSaveClick(){
 
 function btnUpdateItemClick(){
     updateItemValidation();
-}
-
-function Details_Show() {
-    getItems()
 }
 
 // User Profile
