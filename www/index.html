@@ -44,6 +44,7 @@
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
                 <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
                 <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
+                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
             </div>
         </div>
 
@@ -104,6 +105,7 @@
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
                 <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
                 <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
+                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
             </div>
         </div>
 
@@ -173,6 +175,7 @@
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
                 <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
                 <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
+                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
             </div>
         </div>
 
@@ -215,6 +218,7 @@
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
                 <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
                 <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
+                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
             </div>
         </div>
 
@@ -254,11 +258,13 @@
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
                 <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
                 <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
+                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
             </div>
         </div>
 
         <header data-role="header" data-position="fixed">
             <a href="#profilePanelProfilePage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
+            <a href="#Home" class="ui-btn ui-corner-all ui-icon-home ui-btn-icon-notext">Home</a>
             <h2>Profile</h2>
         </header>
 
@@ -377,24 +383,77 @@
                 <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
                 <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
                 <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
+                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
             </div>
         </div>
 
         <header data-role="header" data-position="fixed">
             <a href="#profilePanelProfilePage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
-            <a href="#Home" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">My Lists</a>
+            <a href="#Home" class="ui-btn ui-corner-all ui-icon-home ui-btn-icon-notext">My Lists</a>
             <h2>Settings</h2>
         </header>
 
         <section data-role="content">
 
-            <div data-role="control-group" data-type="horizontal">
+            <div>
                 <h3>Customize theme</h3>
                 <button id = "changeThemeF" data-role="button" data-theme="f" class="ui-btn ui-btn-active ui-corner-all">Default Theme</button>
                 <button id = "changeThemeB" data-role="button" data-theme="b">Dark Theme</button>
                 <button id = "changeThemeA" data-role="button" data-theme="a">Light Theme</button>
             </div>
+            
         </section>
+
+        <footer data-role="footer" data-position="fixed">
+            <h2>&copy; 2022 OneList</h2>
+        </footer>
+    </div>
+
+    <div id="About" data-role="page" data-theme="f">
+
+        <div data-role="panel" data-display="overlay" data-position="left" id="profilePanelProfilePage">
+            <div class="circular--portrait">
+                <img id="profilePanelPic" src="img/pexels-clay-elliot-14634924.jpg">
+            </div>
+            <div class="welcomeDiv">
+                <!--h3>Hello {user_name} </h3-->
+            </div>
+            <div>
+                <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
+                <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
+                <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
+                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
+            </div>
+        </div>
+
+        <header data-role="header" data-position="fixed">
+            <a href="#profilePanelProfilePage" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
+            <a href="#Home" class="ui-btn ui-corner-all ui-icon-home ui-btn-icon-notext">My Lists</a>
+            <h2>About</h2>
+        </header>
+
+        <section data-role="content">
+            <h3>Prog 2430 - Programming Mobile Applications</h3>
+            <h4>Final Project</h4>
+
+            <h4>Creators</h4>
+            <ul id="creatorsList" data-role="listview" data-inset="true" class="ui-listview-inset">
+                <li>
+
+                    <img src="img/cleisonPic.jpg">
+                    <h2>Cleison Hister</h2>
+                    <p>ID: 8752428</p>
+
+                </li>
+                <li>
+                    <img src="img/devitPic.jpg">
+                    <h2>Devit Souza Bremer</h2>
+                    <p>ID: 8752252</p>
+                </li>
+            </ul>
+            
+        </section>
+
         <footer data-role="footer" data-position="fixed">
             <h2>&copy; 2022 OneList</h2>
         </footer>
