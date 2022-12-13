@@ -8,4 +8,22 @@
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+
+    <platform name="android">
+        <!--
+            ldpi    : 36x36 px
+            mdpi    : 48x48 px
+            hdpi    : 72x72 px
+            xhdpi   : 96x96 px
+            xxhdpi  : 144x144 px
+            xxxhdpi : 192x192 px
+        -->
+        <icon src="www/img/android/ldpi/ic_launcher.png" density="ldpi" />
+        <icon src="www/img/android/mdpi/ic_launcher.png" density="mdpi" />
+        <icon src="www/img/android/hdpi/ic_launcher.png" density="hdpi" />
+        <icon src="www/img/android/xhdpi/ic_launcher.png" density="xhdpi" />
+        <icon src="www/img/android/xxhdpi/ic_launcher.png" density="xxhdpi" />
+        <icon src="www/img/android/xxxhdpi/ic_launcher.png" density="xxxhdpi" />
+    </platform>
 </widget>
+
