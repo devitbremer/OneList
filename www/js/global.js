@@ -19,12 +19,22 @@ function initDatabase(){
         console.error(e);
     }
 }
+function themeSetup(){
+    if(localStorage.getItem("currentTheme") === null){
+        changeGlobalTheme('f')
+    }
+    else{
+        changeGlobalTheme(localStorage.getItem("currentTheme"))
+    }
+
+}
 
 function init(){
 
     //ToDo: Set event handlers.
     isUserLoggedIn();
     getLists();
+    themeSetup();
 
     //Load Welcome Message on menu panel
     loadWelcome();
@@ -53,6 +63,11 @@ function init(){
     $("#fileSelectPicture").on("click", selectPictureClick)
     $("#profileSave").on("click", profileSaveClick)
     $("#Profile").on("pageshow", profileShow)
+
+    //Settings
+    $("#changeThemeB").on("click", changeThemeBClick)
+    $("#changeThemeA").on("click", changeThemeAClick)
+    $("#changeThemeF").on("click", changeThemeFClick)
 
 }
 
@@ -125,4 +140,18 @@ function profileSaveClick(){
 
 function profileShow(){
     loadUserProfile()
+}
+
+//Settings
+function changeThemeFClick(){
+    changeGlobalTheme('f');
+}
+
+function changeThemeBClick(){
+    //changeThemeB()
+    changeGlobalTheme('b');
+}
+
+function changeThemeAClick(){
+    changeGlobalTheme('a');
 }
