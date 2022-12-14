@@ -117,7 +117,17 @@
              let sql = "UPDATE item SET completed='true' WHERE id=?;"
              let options = [_itemId]
 
-             transaction.executeSql(sql, options, successCallback(transaction,"UPDATE ITEM"), errorCallback);
+             transaction.executeSql(sql, options, successCallback(transaction,"COMPLETE ITEM"), errorCallback);
+         })
+     },
+
+     uncomplete: function(_itemId){
+         database.transaction(function(transaction){
+
+             let sql = "UPDATE item SET completed='false' WHERE id=?;"
+             let options = [_itemId]
+
+             transaction.executeSql(sql, options, successCallback(transaction,"UNCOMPLETE ITEM"), errorCallback);
          })
      },
 
