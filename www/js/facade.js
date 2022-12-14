@@ -203,7 +203,7 @@ function updateItemValidation(){
 
             try{
             itemOperations.edit(_item, itemId);
-            console.info("Item added to the database")
+            console.info("Item updated")
             location.replace("#Details");
             }
         catch (error){
@@ -228,7 +228,7 @@ function getLists(){
             if (results.rows.length == 0){
                 htmlCode +=`
                 <li>
-                    <h2>Nothing to see here</h2>
+                    <h2>Add your first list</h2>
                 </li>
             `;
             }
@@ -292,28 +292,49 @@ function getItems(){
             if (results.rows.length == 0){
                 htmlCode +=`
                 <li>
-                    <h2>Nothing to see here</h2>
+                    <h2>Add your first item</h2>
                 </li>
             `;
             }
             else {
+                var htmlCompletedFalse = "";
+                var htmlCompletedTrue = "";
                 for (let i = 0; i < results.rows.length ; i++) {
                     var row = results.rows[i];
                     var itemId = row['id']
                     var name = row['name']
                     var quantity = row['quantity']
                     var description = row['description']
+                    var completed = row['completed']
 
-                    htmlCode += `
-                    <li>
-                        <a data-role="button" data-row-id="${row['id']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
+                    if (completed == "false"){
+                        htmlCompletedFalse += `
+                        <li>
+                            <a data-role="button" data-row-id="${row['id']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
                             <span class="ui-li-count">Qty: ${quantity}</span>
                             <p>${description}</p>
                             <a data-role="button" data-row-id="${row['id']}" href="#"></a>
-                        </a>
-                    </li>
-                `;
+                            </a>
+                        </li>
+                        `;
+                    }
+                    else {
+                        htmlCompletedTrue += `                        
+                        <li>
+                            <a data-role="button" data-row-id="${row['id']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
+                            <span class="ui-li-count">Qty: ${quantity}</span>
+                            <p>${description}</p>
+                            <a data-role="button" data-row-id="${row['id']}" href="#" data-split-icon="delete"></a>
+                            </a>
+                        </li>
+                        `;
+                    }
                 }
+                htmlCode += `
+                    ${htmlCompletedFalse}
+                    <p>Completed Items:</p>
+                    ${htmlCompletedTrue}
+                `;
             }
 
             var items = $("#itemList");
@@ -340,9 +361,15 @@ function getItems(){
             $("#itemList a:first-child").on("click", clickHandlerEditItem);
 
             function clickHandlerCompleteItem() {
-                let itemId = $(this).attr("data-row-id");
+/*                let itemId = $(this).attr("data-row-id");
                 itemOperations.delete(itemId);
-                location.reload();
+                location.reload();*/
+                let itemId = $(this).attr("data-row-id")
+
+                    itemOperations.complete(itemId);
+                    console.info("Item updated");
+                    location.replace("#Details");
+
             }
 
             $("#itemList a + a").on("click", clickHandlerCompleteItem);

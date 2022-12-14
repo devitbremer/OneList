@@ -111,6 +111,16 @@
          })
      },
 
+     complete: function(_itemId){
+         database.transaction(function(transaction){
+
+             let sql = "UPDATE item SET completed='true' WHERE id=?;"
+             let options = [_itemId]
+
+             transaction.executeSql(sql, options, successCallback(transaction,"UPDATE ITEM"), errorCallback);
+         })
+     },
+
      //ToDo: Ter duas listas de items completos e iincompletos ou apenas uma lista?
      getByList: function(_listId, listItemCallback){
          database.transaction(function(transaction){
