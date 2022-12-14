@@ -22,6 +22,12 @@ function isUserLoggedIn(){
     }
 }
 
+function loadPopupListForm(){
+    let search = $("#Home [data-type='search']").val()
+    $("#txtNewList").val(search)
+    $("#Home [data-type='search']").val("")
+}
+
 //Calls validation for Add Review Page
 function createNewListValidation(){
     if (doValidation_newListForm()){
@@ -36,7 +42,8 @@ function createNewListValidation(){
         try{
             listOperations.create(_list);
             console.info("List added to the database")
-            location.replace("#Home");
+            $("#addList").popup("close");
+            getLists();
         }
         catch (error){
             console.error(error.message)
@@ -57,8 +64,9 @@ function updateListValidation(){
 
         try{
             listOperations.rename(listId, listName);
-            console.info("List updated on the database")
-            location.replace("#Home");
+            console.info("List updated on the database");
+            $("#updateList").popup("close");
+            getLists();
         }
         catch (error){
             console.error(error.message)
@@ -75,7 +83,8 @@ function deleteList(){
 
     try{
         listOperations.delete(listId)
-        location.reload();
+        $("#updateList").popup("close");
+        getLists();
     }
     catch (error){
         console.error(error.message)
@@ -161,6 +170,12 @@ function setAddItemPageTitle(){
     document.getElementById("addItemPageTitle").innerHTML = addItemPageTitle;
 }
 
+function loadPopupItemForm(){
+    let search = $("#Details [data-type='search']").val()
+    $("#txtItemAdd").val(search)
+    $("#Details [data-type='search']").val("")
+}
+
 function itemAddValidation(){
     if (doValidate_frmItemAdd()){
         console.info("Item is valid")
@@ -176,8 +191,9 @@ function itemAddValidation(){
 
         try{
             itemOperations.create(_item);
-            console.info("Item added to the database")
-            location.replace("#Details");
+            console.info("Item added to the database");
+            $("#addItem").popup("close");
+            getItems();
         }
         catch (error){
             console.error(error.message)
@@ -203,8 +219,12 @@ function updateItemValidation(){
 
             try{
             itemOperations.edit(_item, itemId);
-            console.info("Item updated")
+            console.info("Item updated");
+            $("#updateItem").popup("close")
+            getItems();
+/*
             location.replace("#Details");
+*/
             }
         catch (error){
             console.error(error.message)
@@ -313,7 +333,7 @@ function getItems(){
                             <a data-role="button" data-row-id="${row['id']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
                             <span class="ui-li-count">Qty: ${quantity}</span>
                             <p>${description}</p>
-                            <a data-role="button" data-row-id="${row['id']}" href="#"></a>
+                            <a data-role="button" data-row-id="${row['id']}" href="#" custom-status="incomplete"></a>
                             </a>
                         </li>
                         `;
@@ -321,18 +341,19 @@ function getItems(){
                     else {
                         htmlCompletedTrue += `                        
                         <li>
-                            <a data-role="button" data-row-id="${row['id']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop">${name}
+                            <a data-role="button" data-row-id="${row['id']}" href="#" data-rel="popup" data-positon-to="window" data-transition="pop" style="opacity: 0.3">${name}
                             <span class="ui-li-count">Qty: ${quantity}</span>
                             <p>${description}</p>
-                            <a data-role="button" data-row-id="${row['id']}" href="#" data-split-icon="delete"></a>
+                            <a data-role="button" data-row-id="${row['id']}" href="#" data-icon="back" custom-status="completed"></a>
                             </a>
                         </li>
                         `;
                     }
                 }
                 htmlCode += `
+                    <li data-role="list-divider">Active</li>
                     ${htmlCompletedFalse}
-                    <p>Completed Items:</p>
+                    <li data-role="list-divider">Completed</li>
                     ${htmlCompletedTrue}
                 `;
             }
@@ -361,18 +382,32 @@ function getItems(){
             $("#itemList a:first-child").on("click", clickHandlerEditItem);
 
             function clickHandlerCompleteItem() {
-/*                let itemId = $(this).attr("data-row-id");
-                itemOperations.delete(itemId);
-                location.reload();*/
                 let itemId = $(this).attr("data-row-id")
 
                     itemOperations.complete(itemId);
                     console.info("Item updated");
+                    getItems();
+/*
                     location.replace("#Details");
+*/
 
             }
 
-            $("#itemList a + a").on("click", clickHandlerCompleteItem);
+            $("[custom-status='incomplete']").on("click", clickHandlerCompleteItem);
+
+            function clickHandlerUncompleteItem() {
+                let itemId = $(this).attr("data-row-id")
+
+                itemOperations.uncomplete(itemId);
+                console.info("Item updated");
+                getItems();
+/*
+                location.replace("#Details");
+*/
+
+            }
+
+            $("[custom-status='completed']").on("click", clickHandlerUncompleteItem);
         }
     }
     catch (error){
@@ -396,21 +431,19 @@ function takePicture(){
      
      function onSuccess(imageData) {
 
-        //Get elements
-        var profilePagePic = $("#profilePagePic");
-        var homePanelPic = $("#homePanelPic");
-        var detailsPanelPic = $("#detailsPanelPic");
-        var addItemPanelPic = $("#addItemPanelPic");
-        var addListPanelPic = $("#addListPanelPic");
-        var profilePanelPic = $("#profilePanelPic");
+         //Get elements
+         var profilePagePic = $("#profilePagePic");
+         var homePanelPic = $("#homePanelPic");
+         var detailsPanelPic = $("#detailsPanelPic");
+         var profilePanelPic = $("#profilePanelPic");
+         var aboutPanelPic = $("#aboutPanelPic");
 
-        //Update elements
-        profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
-        homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        addItemPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        addListPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+         //Update elements
+         profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
+         homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+         detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+         profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+         aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
 
         
         //Save on local storage??
@@ -444,20 +477,18 @@ function selectPicture(){
         var profilePagePic = $("#profilePagePic");
         var homePanelPic = $("#homePanelPic");
         var detailsPanelPic = $("#detailsPanelPic");
-        var addItemPanelPic = $("#addItemPanelPic");
-        var addListPanelPic = $("#addListPanelPic");
         var profilePanelPic = $("#profilePanelPic");
+        var aboutPanelPic = $("#aboutPanelPic");
 
-        //Update elements
+         //Update elements
         profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
         homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
         detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        addItemPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        addListPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
         profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
 
-        
-        //Save on local storage??
+
+         //Save on local storage??
         localStorage.setItem("userProfilePic", imageData);
     }
 

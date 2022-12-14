@@ -45,6 +45,13 @@ function init(){
     $("#saveNewList").on("click", saveNewListClick);
     $("#btnUpdateList").on("click", btnUpdateListClick);
     $("#btnDeleteList").on("click", btnDeleteListClick);
+    $("#btnAddList").on("click", btnAddListClick);
+
+
+/*
+    let search = $("#Home [data-type='search']").val()
+*/
+
 
     //User Registration
     $("#btnRegisterUser").on("click", btnRegisterUserClick)
@@ -57,6 +64,7 @@ function init(){
     $("#AddItem").on("pageshow", AddItem_Show);
     $("#itemSave").on("click", itemSaveClick);
     $("#btnUpdateItem").on("click", btnUpdateItemClick);
+    $("#btnAddItem").on("click", btnAddItemClick);
 
     //User Porfile
     $("#cameraTakePicture").on("click", takePictureClick)
@@ -93,6 +101,10 @@ function btnDeleteListClick(){
     deleteList();
 }
 
+function btnAddListClick(){
+    loadPopupListForm();
+}
+
 
 //User Registration
 function btnRegisterUserClick(){
@@ -114,6 +126,10 @@ function Details_Show() {
 function AddItem_Show(){
     setAddItemPageTitle();
     cleartxtNewItemInputs();
+}
+
+function btnAddItemClick(){
+    loadPopupItemForm();
 }
 
 function itemSaveClick(){

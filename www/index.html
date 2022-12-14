@@ -35,7 +35,7 @@
         <div data-role="panel" data-display="overlay" data-position="left" id="homePanel">
 
             <div class="circular--portrait">
-                <img id="homePanelPic" src="img/pexels-clay-elliot-14634924.jpg">
+                <img id="homePanelPic" src="img/profilePlaceHolder.png">
             </div>
             <div class="welcomeDiv">
                 <!--h3>Hello {user_name} </h3-->
@@ -54,39 +54,33 @@
         </header>
         <section data-role="content">
             <ul id="mainList" data-role="listview" data-inset="true" data-filter="true" class="ui-listview-inset" data-split-icon="edit">
-<!--                <li>
-                    <a href="#Details">
-                        <span class="ui-li-count">7</span>Groceries
-                        <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
-                    </a>
-                </li>
-                <li>
-                    <a href="#Details">
-                        <span class="ui-li-count">4</span>Work
-                        <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
-                    </a>
-                </li>
-                <li>
-                    <a href="#Details">
-                        <span class="ui-li-count">12</span>College
-                        <a href="#updateList" data-rel="popup" data-positon-to="window" data-transition="pop"></a>
-                    </a>
-                </li>-->
+                <!-- Lists List -->
             </ul>
 
             <div id="updateList" data-role="popup" class="ui-content">
-                <form id="updateListForm">
+                <form action="#Home" id="updateListForm">
                     <ul data-role="listview" data-inset="true">
                         <li class="ui-field-contain">
                             <label for="txtUpdateList">List</label>
                             <input type="text" name="txtUpdateList" id="txtUpdateList" data-clear-btn="true">
                         </li>
                     </ul>
-                    <button id="btnUpdateList" type="submit" class="ui-btn ui-btn-active ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
-                    <button id="btnDeleteList" type="submit" class="ui-btn ui-btn-b ui-corner-all ui-btn-icon-left ui-icon-delete">Delete</button>
+                    <button id="btnUpdateList" type="button" class="ui-btn ui-btn-active ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                    <button id="btnDeleteList" type="button" class="ui-btn ui-btn-b ui-corner-all ui-btn-icon-left ui-icon-delete">Delete</button>
                 </form>
             </div>
-            <a href="#AddList" class="ui-btn ui-icon-plus ui-corner-all ui-btn-icon-left">New List</a>
+            <div id="addList" data-role="popup" class="ui-content">
+                <form action="#Home" id="newListForm">
+                    <ul data-role="listview" data-inset="true">
+                        <li class="ui-field-contain">
+                            <label for="txtNewList">New List</label>
+                            <input type="text" name="txtNewList" id="txtNewList" data-clear-btn="true">
+                        </li>
+                    </ul>
+                    <button id="saveNewList" type="button" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                </form>
+            </div>
+            <a id="btnAddList" href="#addList" class="ui-btn ui-icon-plus ui-corner-all ui-btn-icon-left" data-rel="popup" data-positon-to="window" data-transition="pop">New List</a>
         </section>
         <footer data-role="footer" data-position="fixed">
             <h2>&copy; 2022 OneList</h2>
@@ -97,7 +91,7 @@
 
         <div data-role="panel" data-display="overlay" data-position="left" id="detailsPanel">
             <div class="circular--portrait">
-                <img id="detailsPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
+                <img id="detailsPanelPic" src="img/profilePlaceHolder.png">
             </div>
             <div class="welcomeDiv">
                 <!--h3>Hello {user_name} </h3-->
@@ -118,29 +112,10 @@
 
         <section data-role="content">
             <ul id="itemList" data-role="listview"  data-inset="true"  data-filter="true" class="ui-listview-inset" data-split-icon="check">
-<!--                <li>
-                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Apples</a>
-                    <a href="#">Completed</a>
-                </li>
-                <li>
-                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Grapes</a>
-                    <a href="#">Completed</a>
-                </li>
-                <li>
-                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Oranges</a>
-                    <a href="#">Completed</a>
-                </li>
-                <li>
-                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Bananas</a>
-                    <a href="#">Completed</a>
-                </li>
-                <li>
-                    <a href="#updateItem" data-rel="popup" data-positon-to="window" data-transition="pop">Watermelon</a>
-                    <a href="#">Completed</a>
-                </li>-->
+                <!-- Items List -->
             </ul>
             <div id="updateItem" data-role="popup" class="ui-content">
-                <form id="updateItemForm">
+                <form action="#Details" id="updateItemForm">
                     <ul data-role="listview" data-inset="true">
                         <li class="ui-field-contain">
                             <label for="txtUpdateItem">Item</label>
@@ -153,104 +128,36 @@
                             <input type="text" name="txtUpdateItemDescription" id="txtUpdateItemDescription" data-clear-btn="true">
                         </li>
                     </ul>
-                    <button id="btnUpdateItem" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                    <button type="button" id="btnUpdateItem" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
                 </form>
             </div>
-            <a href="#AddItem" class="ui-btn ui-icon-plus ui-corner-all ui-btn-icon-left">Add</a>
+            <div id="addItem" data-role="popup" class="ui-content">
+                <form action="#Details" id="frmItemAdd" name="frmItemAdd">
+                    <ul data-role="listview" data-inset="true">
+                        <li class="ui-field-contain">
+                            <label for="txtItemAdd">Item:</label>
+                            <input type="text" name="txtItemAdd" id="txtItemAdd" data-clear-btn="true">
+                            <label for="txtItemQty">Quantity:</label>
+                            <input type="number" name="txtItemQty" id="txtItemQty" value="1" data-clear-btn="true">
+                            <label for="txtItemDescription">Description:</label>
+                            <input type="text" name="txtItemDescription" id="txtItemDescription" data-clear-btn="true">
+                        </li>
+                    </ul>
+                    <button id="itemSave" type="button" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
+                </form>
+            </div>
+            <a id="btnAddItem" href="#addItem" class="ui-btn ui-icon-plus ui-corner-all ui-btn-icon-left" data-rel="popup" data-positon-to="window" data-transition="pop">Add</a>
         </section>
         <footer data-role="footer" data-position="fixed">
             <h2>&copy; 2022 OneList</h2>
         </footer>
     </div>
-
-    <div id="AddItem" data-role="page" data-theme="f">
-
-        <div data-role="panel" data-display="overlay" data-position="left" id="addItemsPanel">
-            <div class="circular--portrait">
-                <img id="addItemPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
-            </div>
-            <div class="welcomeDiv">
-                <!--h3>Hello {user_name} </h3-->
-            </div>
-            <div>
-                <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
-                <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
-                <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
-                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
-            </div>
-        </div>
-
-        <header data-role="header" data-position="fixed">
-            <a href="#addItemsPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
-            <a href="#Details" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">My Lists</a>
-            <h2 id="addItemPageTitle">{ListName}</h2>
-        </header>
-
-        <section data-role="content">
-            <form id="frmItemAdd" name="frmItemAdd">
-                <ul data-role="listview" data-inset="true">
-                    <li class="ui-field-contain">
-                        <label for="txtItemAdd">Item:</label>
-                        <input type="text" name="txtItemAdd" id="txtItemAdd" data-clear-btn="true">
-                        <label for="txtItemQty">Quantity:</label>
-                        <input type="number" name="txtItemQty" id="txtItemQty" value="1" data-clear-btn="true">
-                        <label for="txtItemDescription">Description:</label>
-                        <input type="text" name="txtItemDescription" id="txtItemDescription" data-clear-btn="true">
-                    </li>
-                </ul>
-                <button id="itemSave" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
-            </form>
-        </section>
-        <footer data-role="footer" data-position="fixed">
-            <h2>&copy; 2022 OneList</h2>
-        </footer>
-    </div>
-
-    <div id="AddList" data-role="page" data-theme="f">
-
-        <div data-role="panel" data-display="overlay" data-position="left" id="addListPanel">
-            <div class="circular--portrait">
-                <img id="addListPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
-            </div>
-            <div class="welcomeDiv">
-                <!--h3>Hello {user_name} </h3-->
-            </div>
-            <div>
-                <a href="#Home" class="ui-btn ui-icon-bullets ui-corner-all ui-btn-icon-left">Lists</a>
-                <a href="#Settings" class="ui-btn ui-icon-gear ui-corner-all ui-btn-icon-left">Settings</a>
-                <a href="#Profile" class="ui-btn ui-icon-user ui-corner-all ui-btn-icon-left">Profile</a>
-                <a href="#About" class="ui-btn ui-icon-info ui-corner-all ui-btn-icon-left">About</a>
-            </div>
-        </div>
-
-        <header data-role="header" data-position="fixed">
-            <a href="#addListPanel" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext">Profile</a>
-            <a href="#Home" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext">My Lists</a>
-            <h2>New List</h2>
-        </header>
-
-        <section data-role="content">
-            <form id="newListForm">
-                <ul data-role="listview" data-inset="true">
-                    <li class="ui-field-contain">
-                        <label for="txtNewList">New List</label>
-                        <input type="text" name="txtNewList" id="txtNewList" data-clear-btn="true">
-                    </li>
-                </ul>
-                <button id="saveNewList" type="submit" class="ui-btn ui-corner-all ui-btn-icon-left ui-icon-check">Save</button>
-            </form>
-        </section>
-        <footer data-role="footer" data-position="fixed">
-            <h2>&copy; 2022 OneList</h2>
-        </footer>
-    </div>
-
 
     <div id="Profile" data-role="page" data-theme="f">
 
         <div data-role="panel" data-display="overlay" data-position="left" id="profilePanel">
             <div class="circular--portrait">
-                <img id="profilePanelPic" src="img/pexels-clay-elliot-14634924.jpg">
+                <img id="profilePanelPic" src="img/profilePlaceHolder.png">
             </div>
             <div class="welcomeDiv">
                 <!--h3>Hello {user_name} </h3-->
@@ -271,7 +178,7 @@
 
         <section data-role="content">
             <div class="circular--portrait">
-                <img id="profilePagePic" src="img/pexels-clay-elliot-14634924.jpg">
+                <img id="profilePagePic" src="img/profilePlaceHolder.png">
             </div>
             <div data-role="control-group" data-type="horizontal">
                 <a href="#" id = "cameraTakePicture" class="ui-btn ui-btn-icon-left ui-corner-all ui-icon-camera">Take Photo</a>
@@ -375,7 +282,7 @@
 
         <div data-role="panel" data-display="overlay" data-position="left" id="settingsPanel">
             <div class="circular--portrait">
-                <img id="settingsPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
+                <img id="settingsPanelPic" src="img/profilePlaceHolder.png">
             </div>
             <div class="welcomeDiv">
                 <!--h3>Hello {user_name} </h3-->
@@ -414,7 +321,7 @@
 
         <div data-role="panel" data-display="overlay" data-position="left" id="aboutPanel">
             <div class="circular--portrait">
-                <img id="aboutPanelPic" src="img/pexels-clay-elliot-14634924.jpg">
+                <img id="aboutPanelPic" src="img/profilePlaceHolder.png">
             </div>
             <div class="welcomeDiv">
                 <!--h3>Hello {user_name} </h3-->
