@@ -148,11 +148,11 @@
          })
      },
 
-     delete: function(_itemId, deleteItemCallback){
+     delete: function(_itemId){
          database.transaction(function(transaction){
 
              let sql = "DELETE FROM item WHERE id=?;"
-             transaction.executeSql(sql, [_itemId], deleteItemCallback, errorCallback);
+             transaction.executeSql(sql, [_itemId], successCallback(transaction,"DELETE ITEM"), errorCallback);
          })
      }
   }

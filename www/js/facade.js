@@ -161,7 +161,7 @@ function loginValidation(){
 }
 
 function cleartxtNewItemInputs(){
-    $("#txtItemAdd").val("");
+    $("#txtItemQty").val("1");
     $("#txtItemDescription").val("");
 }
 
@@ -173,7 +173,6 @@ function setAddItemPageTitle(){
 function loadPopupItemForm(){
     let search = $("#Details [data-type='search']").val()
     $("#txtItemAdd").val(search)
-    $("#Details [data-type='search']").val("")
 }
 
 function itemAddValidation(){
@@ -193,6 +192,7 @@ function itemAddValidation(){
             itemOperations.create(_item);
             console.info("Item added to the database");
             $("#addItem").popup("close");
+            $("#Details [data-type='search']").val("")
             getItems();
         }
         catch (error){
@@ -235,6 +235,18 @@ function updateItemValidation(){
         console.info("Item is invalid")
     }
 }
+
+function deleteItem(){
+    var itemId = [localStorage.getItem("itemId")];
+
+    try{
+        itemOperations.delete(itemId)
+        $("#updateItem").popup("close");
+        getItems();
+    }
+    catch (error){
+        console.error(error.message)
+    }}
 
 function getLists(){
     var options = [localStorage.getItem("currentUserId")];
@@ -427,28 +439,29 @@ function takePicture(){
         cameraDirection: Camera.Direction.FRONT,
         targetWidth: 400
 
-     });  
+    });
      
-     function onSuccess(imageData) {
+         function onSuccess(imageData) {
 
-         //Get elements
-         var profilePagePic = $("#profilePagePic");
-         var homePanelPic = $("#homePanelPic");
-         var detailsPanelPic = $("#detailsPanelPic");
-         var profilePanelPic = $("#profilePanelPic");
-         var aboutPanelPic = $("#aboutPanelPic");
+             //Get elements
+             var profilePagePic = $("#profilePagePic");
+             var homePanelPic = $("#homePanelPic");
+             var detailsPanelPic = $("#detailsPanelPic");
+             var profilePanelPic = $("#profilePanelPic");
+             var aboutPanelPic = $("#aboutPanelPic");
+             var settingsPanelPic = $("#settingsPanelPic");
 
-         //Update elements
-         profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
-         homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-         detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-         profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-         aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+             //Update elements
+             profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
+             homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+             detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+             profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+             aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+             settingsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
 
-        
-        //Save on local storage??
-        localStorage.setItem("userProfilePic", imageData);
-    }
+            //Save on local storage??
+            localStorage.setItem("userProfilePic", imageData);
+        }
 
     function onFail(message) { 
         alert('Failed because: ' + message); 
@@ -469,28 +482,29 @@ function selectPicture(){
         cameraDirection: Camera.Direction.FRONT,
         targetWidth: 400
 
-     });  
+    });
      
-     function onSuccess(imageData) {
+        function onSuccess(imageData) {
 
-        //Get elements
-        var profilePagePic = $("#profilePagePic");
-        var homePanelPic = $("#homePanelPic");
-        var detailsPanelPic = $("#detailsPanelPic");
-        var profilePanelPic = $("#profilePanelPic");
-        var aboutPanelPic = $("#aboutPanelPic");
+            //Get elements
+            var profilePagePic = $("#profilePagePic");
+            var homePanelPic = $("#homePanelPic");
+            var detailsPanelPic = $("#detailsPanelPic");
+            var profilePanelPic = $("#profilePanelPic");
+            var aboutPanelPic = $("#aboutPanelPic");
+            var settingsPanelPic = $("#settingsPanelPic");
 
-         //Update elements
-        profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
-        homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-        aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+             //Update elements
+            profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
+            homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+            detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+            profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+            aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+            settingsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
 
-
-         //Save on local storage??
-        localStorage.setItem("userProfilePic", imageData);
-    }
+            //Save on local storage??
+            localStorage.setItem("userProfilePic", imageData);
+        }
 
     function onFail(message) { 
         alert('Failed because: ' + message); 
