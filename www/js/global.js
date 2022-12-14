@@ -12,7 +12,6 @@ function initDatabase(){
     }
 
     try {
-        //databaseSetup.dropTables();
         databaseSetup.createTables();
     }
     catch (e) {
@@ -41,17 +40,10 @@ function init(){
 
     //Lists Context
     $("#Home").on("pageshow", Home_Show);
-    $("#AddList").on("pageshow", AddList_Show);
     $("#saveNewList").on("click", saveNewListClick);
     $("#btnUpdateList").on("click", btnUpdateListClick);
     $("#btnDeleteList").on("click", btnDeleteListClick);
     $("#btnAddList").on("click", btnAddListClick);
-
-
-/*
-    let search = $("#Home [data-type='search']").val()
-*/
-
 
     //User Registration
     $("#btnRegisterUser").on("click", btnRegisterUserClick)
@@ -61,10 +53,10 @@ function init(){
 
     //Items
     $("#Details").on("pageshow", Details_Show);
-    $("#AddItem").on("pageshow", AddItem_Show);
     $("#itemSave").on("click", itemSaveClick);
     $("#btnUpdateItem").on("click", btnUpdateItemClick);
     $("#btnAddItem").on("click", btnAddItemClick);
+    $("#btnDeleteItem").on("click", btnDeleteItemClick);
 
     //User Porfile
     $("#cameraTakePicture").on("click", takePictureClick)
@@ -84,10 +76,6 @@ function Home_Show() {
     getLists()
 }
 
-function AddList_Show(){
-    cleartxtNewListInput()
-}
-
 function saveNewListClick(){
     createNewListValidation();
 }
@@ -102,6 +90,7 @@ function btnDeleteListClick(){
 }
 
 function btnAddListClick(){
+    cleartxtNewListInput()
     loadPopupListForm();
 }
 
@@ -123,12 +112,8 @@ function Details_Show() {
     getItems();
 }
 
-function AddItem_Show(){
-    setAddItemPageTitle();
-    cleartxtNewItemInputs();
-}
-
 function btnAddItemClick(){
+    cleartxtNewItemInputs();
     loadPopupItemForm();
 }
 
@@ -139,6 +124,10 @@ function itemSaveClick(){
 
 function btnUpdateItemClick(){
     updateItemValidation();
+}
+
+function btnDeleteItemClick(){
+    deleteItem();
 }
 
 // User Profile
