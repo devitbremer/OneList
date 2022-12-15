@@ -1,4 +1,3 @@
- //ToDo: Where store user profile pic
  let userOperations = {
 
      register: function(_user){
@@ -61,7 +60,7 @@
      getAll: function(_userID, getAllListCallback){
          database.transaction(function(transaction){
 
-             let sql = "SELECT l.id, l.description, COUNT(i.id) AS itemCount FROM list l LEFT JOIN item i on i.listId = l.id WHERE userId=? GROUP BY l.description ORDER BY l.description;"
+             let sql = "SELECT l.id, l.description, COUNT(i.id) AS itemCount FROM list l LEFT JOIN item i on i.listId = l.id WHERE userId=? GROUP BY l.id ORDER BY l.description;"
              transaction.executeSql(sql, [_userID], getAllListCallback, errorCallback);
          })
      },

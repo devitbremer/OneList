@@ -227,7 +227,7 @@ function doValidate_frmItemAdd(){
             txtItemAdd:{
                 required: "Name is required",
                 minlength: "Min 2 characters",
-                maxlength: "Min 15 characters"
+                maxlength: "Max 15 characters"
             },
             txtItemQty:{
                 required: "Quantity is required",
