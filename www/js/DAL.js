@@ -20,17 +20,6 @@
          })
      },
 
-     saveProfilePic: function(imageId, userId){
-        database.transaction(function (tx){
-
-            let sql = "UPDATE user SET profilePic=? WHERE id=?";
-
-            tx.executeSql(sql, [imageId, userId], successCallback(tx, "SAVE PROFILE PICTURE", errorCallback))
-
-        })
-
-     },
-
      getById: function(_userID, getUserCallback){
          database.transaction(function (tx){
 
@@ -131,7 +120,6 @@
          })
      },
 
-     //ToDo: Ter duas listas de items completos e iincompletos ou apenas uma lista?
      getByList: function(_listId, listItemCallback){
          database.transaction(function(transaction){
 
