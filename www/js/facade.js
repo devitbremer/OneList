@@ -1,20 +1,6 @@
-function loadAppBasicData() {
-
-
-    /*userOperations.getById(1, getUserCallback)
-
-    function getUserCallback(tx, results) {
-
-        if (results.rows.length > 0){
-            let row = results.rows[0]
-            localStorage.setItem("currentUserId", row["userId"])
-        }
-
-
-    }*/
-}
+//initial setup
 function isUserLoggedIn(){
-    if (localStorage.getItem("userLoggedIn")){
+    if (localStorage.getItem("userLoggedIn") == "true"){
         location.replace("#Home")
     }
     else {
@@ -22,79 +8,20 @@ function isUserLoggedIn(){
     }
 }
 
-function loadPopupListForm(){
-    let search = $("#Home [data-type='search']").val()
-    $("#txtNewList").val(search)
-    $("#Home [data-type='search']").val("")
-}
+//Load welcome message on menu panel
+function loadWelcome(){
 
-//Calls validation for Add Review Page
-function createNewListValidation(){
-    if (doValidation_newListForm()){
-        console.info("List is valid")
+    userOperations.getById(localStorage.getItem("currentUserId"), callback)
+    function callback(transaction, results){
 
-        //Creates list object
-        let _list = new List(
-            localStorage.getItem("currentUserId"),
-            $("#txtNewList").val()
-        )
+        let row = results.rows[0];
+        let fullName = row["fullName"];
 
-        try{
-            listOperations.create(_list);
-            console.info("List added to the database")
-            $("#addList").popup("close");
-            getLists();
-        }
-        catch (error){
-            console.error(error.message)
-        }
-
-    }
-    else{
-        console.info("List is invalid")
+        $("[custom-welcome='welcomeH3']").text("Hello "+fullName+".")
     }
 }
 
-function updateListValidation(){
-    if (doValidation_updateListForm()){
-        console.info("List is valid")
-
-        let listId = localStorage.getItem("listId")
-        let listName = $("#txtUpdateList").val()
-
-        try{
-            listOperations.rename(listId, listName);
-            console.info("List updated on the database");
-            $("#updateList").popup("close");
-            getLists();
-        }
-        catch (error){
-            console.error(error.message)
-        }
-
-    }
-    else{
-        console.info("List is invalid")
-    }
-}
-
-function deleteList(){
-    let listId = localStorage.getItem("listId")
-
-    try{
-        listOperations.delete(listId)
-        $("#updateList").popup("close");
-        getLists();
-    }
-    catch (error){
-        console.error(error.message)
-    }
-}
-
-function cleartxtNewListInput(){
-    $("#txtNewList").val("");
-}
-
+//user registration
 function createNewUserValidation(){
 
     if(doValidation_registerForm()){
@@ -107,15 +34,16 @@ function createNewUserValidation(){
         try{
             userOperations.register(user);
             console.log("User registered successfully.");
+            clearLoginError()
             location.replace("#Login");
         }
         catch (error){
             console.error(error.message)
         }
-
     }
 }
 
+//user login
 function loginValidation(){
 
     if(doValidation_loginForm()){
@@ -133,8 +61,7 @@ function loginValidation(){
 
             function callback(transaction, results){
                 if (results.rows.length == 0){
-                    //document.getElementById("userError").innerHTML = "User doesn't exist";
-                    location.reload();
+                    $("#loginError").text("Invalid Credentials")
                 }
                 else {
                     let row = results.rows[0];
@@ -149,7 +76,7 @@ function loginValidation(){
                         location.replace("#Home")
                     }
                     else {
-                        location.reload();
+                        $("#loginError").text("Invalid Credentials")
                     }
                 }
             }
@@ -160,94 +87,13 @@ function loginValidation(){
     }
 }
 
-function cleartxtNewItemInputs(){
-    $("#txtItemQty").val("1");
-    $("#txtItemDescription").val("");
+//clear error message on login page
+function clearLoginError(){
+    $("#loginError").text("")
 }
 
-function setAddItemPageTitle(){
-    let addItemPageTitle = localStorage.getItem("listName");
-    document.getElementById("addItemPageTitle").innerHTML = addItemPageTitle;
-}
-
-function loadPopupItemForm(){
-    let search = $("#Details [data-type='search']").val()
-    $("#txtItemAdd").val(search)
-}
-
-function itemAddValidation(){
-    if (doValidate_frmItemAdd()){
-        console.info("Item is valid")
-
-        //Creates list object
-        let _item = new Item(
-            localStorage.getItem("listId"),
-            $("#txtItemAdd").val(),
-            $("#txtItemQty").val(),
-            $("#txtItemDescription").val(),
-            false
-        )
-
-        try{
-            itemOperations.create(_item);
-            console.info("Item added to the database");
-            $("#addItem").popup("close");
-            $("#Details [data-type='search']").val("")
-            getItems();
-        }
-        catch (error){
-            console.error(error.message)
-        }
-
-    }
-    else{
-        console.info("Item is invalid")
-    }
-}
-
-function updateItemValidation(){
-    if (doValidate_frmItemUpdate()){
-        console.info("Item is valid")
-
-        let _item = new Item(
-            listId = localStorage.getItem("listId"),
-            itemName = $("#txtUpdateItem").val(),
-            itemQuantity = $("#txtUpdateItemQuantity").val(),
-            itemDescription = $("#txtUpdateItemDescription").val()
-        )
-        let itemId = localStorage.getItem("itemId")
-
-            try{
-            itemOperations.edit(_item, itemId);
-            console.info("Item updated");
-            $("#updateItem").popup("close")
-            getItems();
-/*
-            location.replace("#Details");
-*/
-            }
-        catch (error){
-            console.error(error.message)
-        }
-
-    }
-    else{
-        console.info("Item is invalid")
-    }
-}
-
-function deleteItem(){
-    var itemId = [localStorage.getItem("itemId")];
-
-    try{
-        itemOperations.delete(itemId)
-        $("#updateItem").popup("close");
-        getItems();
-    }
-    catch (error){
-        console.error(error.message)
-    }}
-
+//lists context
+//get lists on the database and display on Home page
 function getLists(){
     var options = [localStorage.getItem("currentUserId")];
 
@@ -303,15 +149,95 @@ function getLists(){
         }
     }
     catch (error){
-       console.error(error.message)
+        console.error(error.message)
     }
 }
 
-function setDetailsPageTitle(){
-    let detailsTitle = localStorage.getItem("listName");
-    document.getElementById("detailsTitle").innerHTML = detailsTitle;
+//create new list
+function createNewListValidation(){
+    if (doValidation_newListForm()){
+        console.info("List is valid")
+
+        //Creates list object
+        let _list = new List(
+            localStorage.getItem("currentUserId"),
+            $("#txtNewList").val()
+        )
+
+        try{
+            listOperations.create(_list);
+            console.info("List added to the database")
+            $("#addList").popup("close");
+            $("#Home [data-type='search']").val("")
+            getLists();
+        }
+        catch (error){
+            console.error(error.message)
+        }
+
+    }
+    else{
+        console.info("List is invalid")
+    }
 }
 
+//update list
+function updateListValidation(){
+    if (doValidation_updateListForm()){
+        console.info("List is valid")
+
+        let listId = localStorage.getItem("listId")
+        let listName = $("#txtUpdateList").val()
+
+        try{
+            listOperations.rename(listId, listName);
+            console.info("List updated on the database");
+            $("#updateList").popup("close");
+            getLists();
+        }
+        catch (error){
+            console.error(error.message)
+        }
+
+    }
+    else{
+        console.info("List is invalid")
+    }
+}
+
+//delete list
+function deleteList(){
+    let listId = localStorage.getItem("listId")
+
+    try{
+        listOperations.delete(listId)
+        $("#updateList").popup("close");
+        getLists();
+    }
+    catch (error){
+        console.error(error.message)
+    }
+}
+
+// clear text input for new list
+function cleartxtNewListInput(){
+    $("#txtNewList").val("");
+}
+
+//get data from search bar and send to input text for new list
+function loadPopupListForm(){
+    let search = $("#Home [data-type='search']").val()
+    $("#txtNewList").val(search)
+}
+
+//Items
+//set details page title
+function setDetailsPageTitle(){
+    let detailsTitle = localStorage.getItem("listName");
+    $("#detailsTitle").text(detailsTitle);
+}
+
+//get data from database and show on Details page
 function getItems(){
     var options = [localStorage.getItem("listId")];
 
@@ -333,7 +259,6 @@ function getItems(){
                 var htmlCompletedTrue = "";
                 for (let i = 0; i < results.rows.length ; i++) {
                     var row = results.rows[i];
-                    var itemId = row['id']
                     var name = row['name']
                     var quantity = row['quantity']
                     var description = row['description']
@@ -385,8 +310,8 @@ function getItems(){
                     let itemName = row['name']
                     let itemQuantity = row['quantity']
                     let itemDescription = row['description']
-                    $("#txtUpdateItem").val(itemName),
-                    $("#txtUpdateItemQuantity").val(itemQuantity),
+                    $("#txtUpdateItem").val(itemName)
+                    $("#txtUpdateItemQuantity").val(itemQuantity)
                     $("#txtUpdateItemDescription").val(itemDescription)
                 }
             }
@@ -396,13 +321,9 @@ function getItems(){
             function clickHandlerCompleteItem() {
                 let itemId = $(this).attr("data-row-id")
 
-                    itemOperations.complete(itemId);
-                    console.info("Item updated");
-                    getItems();
-/*
-                    location.replace("#Details");
-*/
-
+                itemOperations.complete(itemId);
+                console.info("Item updated");
+                getItems();
             }
 
             $("[custom-status='incomplete']").on("click", clickHandlerCompleteItem);
@@ -413,10 +334,6 @@ function getItems(){
                 itemOperations.uncomplete(itemId);
                 console.info("Item updated");
                 getItems();
-/*
-                location.replace("#Details");
-*/
-
             }
 
             $("[custom-status='completed']").on("click", clickHandlerUncompleteItem);
@@ -427,7 +344,136 @@ function getItems(){
     }
 }
 
+// clear input text for new item
+function cleartxtNewItemInputs(){
+    $("#txtItemQty").val("1");
+    $("#txtItemDescription").val("");
+}
+
+//get data from search bar and send to input text for new item
+function loadPopupItemForm(){
+    let search = $("#Details [data-type='search']").val()
+    $("#txtItemAdd").val(search)
+}
+
+//add new item
+function itemAddValidation(){
+    if (doValidate_frmItemAdd()){
+        console.info("Item is valid")
+
+        //Creates list object
+        let _item = new Item(
+            localStorage.getItem("listId"),
+            $("#txtItemAdd").val(),
+            $("#txtItemQty").val(),
+            $("#txtItemDescription").val(),
+            false
+        )
+
+        try{
+            itemOperations.create(_item);
+            console.info("Item added to the database");
+            $("#addItem").popup("close");
+            $("#Details [data-type='search']").val("")
+            getItems();
+        }
+        catch (error){
+            console.error(error.message)
+        }
+
+    }
+    else{
+        console.info("Item is invalid")
+    }
+}
+
+//update item
+function updateItemValidation(){
+    if (doValidate_frmItemUpdate()){
+        console.info("Item is valid")
+
+        let _item = new Item(
+            listId = localStorage.getItem("listId"),
+            itemName = $("#txtUpdateItem").val(),
+            itemQuantity = $("#txtUpdateItemQuantity").val(),
+            itemDescription = $("#txtUpdateItemDescription").val()
+        )
+        let itemId = localStorage.getItem("itemId")
+
+            try{
+            itemOperations.edit(_item, itemId);
+            console.info("Item updated");
+            $("#updateItem").popup("close")
+            getItems();
+            }
+        catch (error){
+            console.error(error.message)
+        }
+
+    }
+    else{
+        console.info("Item is invalid")
+    }
+}
+
+//delete item
+function deleteItem(){
+    var itemId = [localStorage.getItem("itemId")];
+
+    try{
+        itemOperations.delete(itemId)
+        $("#updateItem").popup("close");
+        getItems();
+    }
+    catch (error){
+        console.error(error.message)
+    }}
+
+//User profile
+//select an image from android device and show it on profile and panels
+function selectPicture(){
+
+    navigator.camera.getPicture(onSuccess, onFail, {
+        quality: 80,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        correctOrientation: true,
+        cameraDirection: Camera.Direction.FRONT,
+        targetWidth: 400
+
+    });
+
+    function onSuccess(imageData) {
+
+        //Get elements
+        var profilePagePic = $("#profilePagePic");
+        var homePanelPic = $("#homePanelPic");
+        var detailsPanelPic = $("#detailsPanelPic");
+        var profilePanelPic = $("#profilePanelPic");
+        var aboutPanelPic = $("#aboutPanelPic");
+        var settingsPanelPic = $("#settingsPanelPic");
+
+        //Update elements
+        profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
+        homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+        settingsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
+
+        //Save on local storage??
+        localStorage.setItem("userProfilePic", imageData);
+    }
+
+    function onFail(message) {
+        console.error('Failed because: ' + message);
+    }
+}
+
 //Camera handler
+//take a picture from android device and show it on profile and panels
 function takePicture(){
     navigator.camera.getPicture(onSuccess, onFail, {  
         quality: 80, 
@@ -464,53 +510,11 @@ function takePicture(){
         }
 
     function onFail(message) { 
-        alert('Failed because: ' + message); 
+        console.error('Failed because: ' + message);
     } 
 }
 
-
-//Image galerry handler
-function selectPicture(){
-    
-    navigator.camera.getPicture(onSuccess, onFail, {  
-        quality: 80, 
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        encodingType: Camera.EncodingType.JPEG, 
-        mediaType: Camera.MediaType.PICTURE,
-        correctOrientation: true,
-        cameraDirection: Camera.Direction.FRONT,
-        targetWidth: 400
-
-    });
-     
-        function onSuccess(imageData) {
-
-            //Get elements
-            var profilePagePic = $("#profilePagePic");
-            var homePanelPic = $("#homePanelPic");
-            var detailsPanelPic = $("#detailsPanelPic");
-            var profilePanelPic = $("#profilePanelPic");
-            var aboutPanelPic = $("#aboutPanelPic");
-            var settingsPanelPic = $("#settingsPanelPic");
-
-             //Update elements
-            profilePagePic.prop("src", "data:image/jpeg;base64," + imageData);
-            homePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-            detailsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-            profilePanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-            aboutPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-            settingsPanelPic.prop("src", "data:image/jpeg;base64," + imageData);
-
-            //Save on local storage??
-            localStorage.setItem("userProfilePic", imageData);
-        }
-
-    function onFail(message) { 
-        alert('Failed because: ' + message); 
-    } 
-}
-
+//update user profile information
 function saveUserProfile(){
 
     if(doValidation_userProfileForm()){
@@ -521,8 +525,12 @@ function saveUserProfile(){
         user.password = $("#confirmPassword").val();
 
         try{
-            userOperations.update(user);
-            location.replace("#Profile");
+            let result = confirm("Update user?")
+            if (result == true){
+                userOperations.update(user);
+                loadWelcome();
+                loadUserProfile();
+            }
         }
         catch (error){
             console.error(error.message)
@@ -533,6 +541,7 @@ function saveUserProfile(){
     }
 }
 
+//get user profile information from database and show on profile page
 function loadUserProfile(){
 
     userOperations.getById(localStorage.getItem("currentUserId"), callback)
@@ -547,23 +556,14 @@ function loadUserProfile(){
     }
 }
 
-//Load welcome message on menu panel
-function loadWelcome(){
-
-    userOperations.getById(localStorage.getItem("currentUserId"), callback)
-    function callback(transaction, results){
-
-        let row = results.rows[0];
-        let fullName = row["fullName"];
-
-        $(".welcomeDiv").append("<h3>Hello "+fullName+".</h3>")
-    }
-
-    
+//logout current user
+function logoutUser(){
+    localStorage.setItem("userLoggedIn", "false");
+    localStorage.removeItem("currentUserId");
+    location.reload();
 }
 
 //Settings Page - Change Theme
-
 function changeGlobalTheme(theme)
 {
     //Saves current theme on localStorage
@@ -590,4 +590,4 @@ function changeGlobalTheme(theme)
     setTheme("[data-role='listview'] > li", "ui-bar", theme);
     setTheme(".ui-btn", "ui-btn-up", theme);
     setTheme(".ui-btn", "ui-btn-hover", theme);
-};
+}

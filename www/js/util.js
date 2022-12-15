@@ -1,4 +1,3 @@
-
 function doValidation_newListForm(){
 
     let formNewList = $("#newListForm");
@@ -88,8 +87,8 @@ function doValidation_registerForm(){
         messages:{
             txtRegisterName:{
                 required: "Name is required.",
-                minlength: "Min 2 characters.",
-                maxlength: "Min 15 characters."
+                minlength: "Min 5 characters.",
+                maxlength: "Max 30 characters."
             },
             txtRegisterEmail:{
                 required: "Email is required.",
@@ -98,12 +97,12 @@ function doValidation_registerForm(){
             txtRegisterPassword:{
                 required: "Password is required.",
                 minlength: "Min 8 characters.",
-                maxlength: "Min 15 characters.",
+                maxlength: "Max 15 characters.",
                 pwdStrength: "Weak password"
             },
             txtRegisterConfirmPassword:{
                 required: "Confirm password.",
-                equalTo: "Passwords don`t match."
+                equalTo: "Passwords don't match."
 
             },
 
@@ -140,19 +139,19 @@ function doValidation_userProfileForm(){
         },
         messages:{
             fullName:{
-                required: "Please enter your full name.",
-                minlength: "Your name must have at least 2 characters.",
-                maxlength: "Your name can`t have more than 15 characters."
+                required: "Name is required.",
+                minlength: "Min 2 characters.",
+                maxlength: "Max 15 characters."
             },
             password:{
-                required: "Please enter a password.",
-                minlength: "Password must have at least 8 characters.",
-                maxlength: "Password can`t have more than 15 characters.",
-                pwdStrength: "Password must meet complexity requirements"
+                required: "Password is required.",
+                minlength: "Min 8 characters.",
+                maxlength: "Max 15 characters.",
+                pwdStrength: "Weak password"
             },
             confirmPassword:{
-                required: "Please confirm your password.",
-                equalTo: "Passwords don`t match."
+                required: "Confirm password.",
+                equalTo: "Passwords don't match."
 
             },
 
